@@ -1,0 +1,5210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="《立体调研》——把一身调研本领，成体系交给团队：从五个职业到一套方法论。v3 · 增补：知识宇宙开场 · 起转承合叙事。">
+<title>立体调研 · 方法论体系分享 v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   0. 设计变量
+   ============================================================ */
+:root
+{
+  --paper:        #faf7f2;
+  --paper-deep:   #f3ede1;
+  --paper-card:   #fdfbf7;
+  --ink:          #1a1a1a;
+  --ink-soft:     #454038;
+  --ink-faint:    #8a8175;
+  --cinnabar:     #a63d2a;
+  --cinnabar-deep:#7e2d1e;
+  --cinnabar-soft:#c57a68;
+  --tan:          #b3a488;
+  --tan-deep:     #8f7f63;
+  --line:         #e4dac9;
+  --line-soft:    #efe8db;
+  --serif: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+  --sans:  'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --maxw: 880px;
+  --maxw-wide: 1120px;
+  --topbar-h: 74px;
+}
+
+/* ============================================================
+   1. 基础重置与纸张质感
+   ============================================================ */
+*,
+*::before,
+*::after
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html
+{
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body
+{
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse 90% 60% at 15% 0%, rgba(166, 61, 42, 0.028), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 100%, rgba(179, 164, 136, 0.05), transparent 60%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0.015em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection
+{
+  background: var(--cinnabar);
+  color: #fdf8f0;
+}
+
+img,
+svg
+{
+  max-width: 100%;
+  display: block;
+}
+
+a
+{
+  color: var(--cinnabar);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(166, 61, 42, 0.35);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+a:hover
+{
+  color: var(--cinnabar-deep);
+  border-bottom-color: var(--cinnabar-deep);
+}
+
+h1, h2, h3, h4
+{
+  font-family: var(--serif);
+  font-weight: 700;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+/* ============================================================
+   2. 顶部进度条 + 章节导航
+   ============================================================ */
+#topbar
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(250, 247, 242, 0.88);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  backdrop-filter: blur(12px) saturate(1.1);
+  border-bottom: 1px solid var(--line);
+}
+
+#progress
+{
+  height: 3px;
+  background: rgba(166, 61, 42, 0.08);
+}
+
+#progress-fill
+{
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--cinnabar), var(--cinnabar-deep));
+  transition: width 0.12s linear;
+}
+
+#chapnav
+{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 46px;
+  padding: 0 18px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#chapnav::-webkit-scrollbar
+{
+  display: none;
+}
+
+#chapnav .brand
+{
+  flex: 0 0 auto;
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 0.28em;
+  color: var(--ink);
+  padding: 4px 14px 4px 0;
+  margin-right: 10px;
+  border-right: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+#chapnav .brand b
+{
+  color: var(--cinnabar);
+}
+
+#chapnav a.navlink
+{
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 9px;
+  border: none;
+  border-radius: 3px;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+#chapnav a.navlink i
+{
+  font-style: normal;
+  font-family: var(--serif);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--tan);
+  transition: color 0.3s ease;
+}
+
+#chapnav a.navlink em
+{
+  font-style: normal;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+}
+
+#chapnav a.navlink:hover
+{
+  color: var(--ink);
+  background: rgba(166, 61, 42, 0.06);
+}
+
+#chapnav a.navlink.active
+{
+  color: var(--cinnabar);
+}
+
+#chapnav a.navlink.active i
+{
+  color: var(--cinnabar);
+}
+
+#chapnav a.navlink.active em
+{
+  font-weight: 700;
+}
+
+/* ============================================================
+   3. 通用版面：章节容器、章节头、正文排版
+   ============================================================ */
+.chapter
+{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 15vh 32px 11vh;
+  scroll-margin-top: var(--topbar-h);
+  position: relative;
+}
+
+.chapter.wide
+{
+  max-width: var(--maxw-wide);
+}
+
+.chapter + .chapter
+{
+  border-top: 1px solid var(--line-soft);
+}
+
+.ch-head
+{
+  margin-bottom: 64px;
+}
+
+.ch-eyebrow
+{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  color: var(--cinnabar);
+  margin-bottom: 22px;
+}
+
+.ch-eyebrow::before
+{
+  content: "";
+  width: 46px;
+  height: 1px;
+  background: var(--cinnabar);
+  flex: 0 0 auto;
+}
+
+.chapter h2
+{
+  font-size: clamp(1.9rem, 4.6vw, 2.85rem);
+  line-height: 1.32;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+.chapter h2 .accent
+{
+  color: var(--cinnabar);
+}
+
+.ch-sub
+{
+  font-size: 15px;
+  color: var(--ink-faint);
+  letter-spacing: 0.18em;
+  font-family: var(--serif);
+}
+
+.prose p
+{
+  margin: 0 0 1.45em;
+  color: var(--ink-soft);
+}
+
+.prose p:last-child
+{
+  margin-bottom: 0;
+}
+
+.prose strong
+{
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.prose .lead
+{
+  font-size: clamp(1.08rem, 2vw, 1.22rem);
+  line-height: 1.95;
+  color: var(--ink);
+}
+
+.prose .lead::first-letter
+{
+  font-family: var(--serif);
+}
+
+.kw
+{
+  color: var(--cinnabar);
+  font-weight: 700;
+}
+
+/* 段落小标题 */
+.h-block
+{
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 56px 0 22px;
+  padding-left: 16px;
+  border-left: 3px solid var(--cinnabar);
+  line-height: 1.5;
+}
+
+/* 杂志式引句 */
+.pull
+{
+  font-family: var(--serif);
+  font-size: clamp(1.28rem, 2.8vw, 1.68rem);
+  font-weight: 600;
+  line-height: 1.85;
+  color: var(--ink);
+  border-left: 3px solid var(--cinnabar);
+  padding: 6px 0 6px 1.35em;
+  margin: 64px 0;
+}
+
+.pull small
+{
+  display: block;
+  margin-top: 14px;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+}
+
+.pull .accent
+{
+  color: var(--cinnabar);
+}
+
+/* 大数字数据条 */
+.figrow
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin: 52px 0;
+}
+
+.fig
+{
+  flex: 1 1 190px;
+  border-top: 2px solid var(--cinnabar);
+  padding-top: 18px;
+}
+
+.fig b
+{
+  display: block;
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  line-height: 1.15;
+  color: var(--cinnabar);
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.fig span
+{
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+/* 注释/旁注 */
+.note
+{
+  margin-top: 40px;
+  padding: 20px 24px;
+  background: var(--paper-deep);
+  border-left: 3px solid var(--tan);
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ink-faint);
+  border-radius: 0 4px 4px 0;
+}
+
+.note b
+{
+  color: var(--ink-soft);
+}
+
+/* 分隔呼吸符 */
+.breath
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 72px 0 0;
+  color: var(--tan);
+  font-family: var(--serif);
+  letter-spacing: 0.6em;
+  font-size: 13px;
+}
+
+.breath::before,
+.breath::after
+{
+  content: "";
+  width: 60px;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ============================================================
+   4. 滚动动效
+   ============================================================ */
+.reveal
+{
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.95s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.95s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.in
+{
+  opacity: 1;
+  transform: none;
+}
+
+.reveal[data-delay="1"] { transition-delay: 0.12s; }
+.reveal[data-delay="2"] { transition-delay: 0.24s; }
+.reveal[data-delay="3"] { transition-delay: 0.36s; }
+.reveal[data-delay="4"] { transition-delay: 0.48s; }
+.reveal[data-delay="5"] { transition-delay: 0.60s; }
+
+@media (prefers-reduced-motion: reduce)
+{
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+<style>
+/* ============================================================
+   5. 封面
+   ============================================================ */
+#cover
+{
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 140px 28px 90px;
+  position: relative;
+  overflow: hidden;
+}
+
+#cover::before
+{
+  content: "调研";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -56%);
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(20rem, 52vw, 44rem);
+  line-height: 1;
+  color: rgba(166, 61, 42, 0.035);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.cover-inner
+{
+  position: relative;
+  max-width: 760px;
+}
+
+.cover-seal
+{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 44px;
+  background: var(--cinnabar);
+  color: #fdf8f0;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.16em;
+  writing-mode: vertical-rl;
+  border-radius: 3px;
+  box-shadow: 3px 3px 0 rgba(126, 45, 30, 0.22);
+}
+
+.cover-kicker
+{
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.55em;
+  color: var(--ink-faint);
+  margin-bottom: 26px;
+  text-indent: 0.55em;
+}
+
+.cover-title
+{
+  font-size: clamp(3.4rem, 11vw, 7rem);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  text-indent: 0.14em;
+}
+
+.cover-title-underline
+{
+  width: min(420px, 72%);
+  margin: 18px auto 40px;
+}
+
+.cover-sub
+{
+  font-family: var(--serif);
+  font-size: clamp(1.02rem, 2.4vw, 1.3rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 2.05;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+
+.cover-v2note
+{
+  font-size: 11.5px;
+  letter-spacing: 0.3em;
+  color: var(--tan-deep);
+  margin-bottom: 52px;
+}
+
+.cover-hook
+{
+  display: inline-block;
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 2.5vw, 1.32rem);
+  font-weight: 600;
+  line-height: 2;
+  color: var(--ink);
+  padding: 22px 34px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  max-width: 640px;
+}
+
+.cover-hook .accent
+{
+  color: var(--cinnabar);
+}
+
+.cover-meta
+{
+  margin-top: 46px;
+  font-size: 12.5px;
+  letter-spacing: 0.32em;
+  color: var(--ink-faint);
+}
+
+.scroll-hint
+{
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink-faint);
+  font-size: 11.5px;
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+}
+
+.scroll-hint .chev
+{
+  width: 11px;
+  height: 11px;
+  border-right: 1.5px solid var(--cinnabar);
+  border-bottom: 1.5px solid var(--cinnabar);
+  transform: rotate(45deg);
+  animation: chev 2.1s ease-in-out infinite;
+}
+
+@keyframes chev
+{
+  0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.35; }
+  50%      { transform: rotate(45deg) translate(4px, 4px); opacity: 1; }
+}
+
+/* ============================================================
+   6. 第三章 · 职业时间轴
+   ============================================================ */
+.timeline
+{
+  position: relative;
+  margin: 72px 0 24px;
+  padding: 10px 0;
+}
+
+.timeline::before
+{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, var(--line), var(--tan) 50%, var(--cinnabar));
+  transform: translateX(-0.5px);
+}
+
+.tl-item
+{
+  position: relative;
+  width: 50%;
+  padding: 0 52px 72px 0;
+}
+
+.tl-item:nth-child(even)
+{
+  margin-left: 50%;
+  padding: 0 0 72px 52px;
+}
+
+.tl-item::after
+{
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--tan-deep);
+  z-index: 2;
+}
+
+.tl-item:nth-child(odd)::after
+{
+  right: -7px;
+}
+
+.tl-item:nth-child(even)::after
+{
+  left: -7px;
+}
+
+.tl-item.hot::after
+{
+  border-color: var(--cinnabar);
+  box-shadow: 0 0 0 6px rgba(166, 61, 42, 0.12);
+}
+
+.tl-item:nth-child(odd) .tl-card
+{
+  text-align: right;
+}
+
+.tl-era
+{
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 0.34em;
+  color: var(--cinnabar);
+  margin-bottom: 8px;
+}
+
+.tl-card h3
+{
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.tl-skill
+{
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--cinnabar-deep);
+  background: rgba(166, 61, 42, 0.08);
+  border: 1px solid rgba(166, 61, 42, 0.28);
+  border-radius: 3px;
+  padding: 3px 12px;
+  margin: 8px 0 14px;
+}
+
+.tl-card p
+{
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+/* 汇合点 */
+.tl-merge
+{
+  position: relative;
+  width: 100%;
+  padding: 24px 0 8px;
+  text-align: center;
+}
+
+.tl-merge::after
+{
+  content: "";
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--cinnabar);
+  border: 4px solid var(--paper);
+  box-shadow: 0 0 0 3px var(--cinnabar), 0 0 0 12px rgba(166, 61, 42, 0.12);
+  z-index: 2;
+}
+
+.tl-merge-card
+{
+  max-width: 620px;
+  margin: 76px auto 0;
+  padding: 40px 44px;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--cinnabar);
+  border-radius: 4px;
+  box-shadow: 0 18px 44px -24px rgba(60, 45, 30, 0.28);
+}
+
+.tl-merge-card h3
+{
+  font-size: 1.65rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.tl-merge-card h3 .accent
+{
+  color: var(--cinnabar);
+}
+
+.tl-merge-card .tl-skill
+{
+  margin-top: 12px;
+}
+
+/* ============================================================
+   7. 第五章 · 六维框架
+   ============================================================ */
+.dim-diagram
+{
+  margin: 20px auto 56px;
+  max-width: 640px;
+}
+
+.dim-grid
+{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.dim-card
+{
+  position: relative;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 26px 24px 22px;
+  cursor: pointer;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.dim-card:hover
+{
+  border-color: var(--cinnabar-soft);
+  box-shadow: 0 14px 34px -20px rgba(60, 45, 30, 0.35);
+  transform: translateY(-3px);
+}
+
+.dim-card .dim-idx
+{
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--tan-deep);
+  margin-bottom: 10px;
+}
+
+.dim-card h3
+{
+  font-size: 1.42rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.dim-card:hover h3,
+.dim-card.open h3
+{
+  color: var(--cinnabar);
+}
+
+.dim-card .dim-brief
+{
+  font-size: 13.5px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+.dim-detail
+{
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.55s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.45s ease, margin 0.45s ease;
+}
+
+.dim-card.open .dim-detail
+{
+  max-height: 320px;
+  opacity: 1;
+  margin-top: 16px;
+}
+
+.dim-detail ul
+{
+  list-style: none;
+  border-top: 1px dashed var(--line);
+  padding-top: 14px;
+}
+
+.dim-detail li
+{
+  position: relative;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  padding-left: 18px;
+  margin-bottom: 6px;
+}
+
+.dim-detail li::before
+{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.78em;
+  width: 7px;
+  height: 1.5px;
+  background: var(--cinnabar);
+}
+
+.dim-toggle
+{
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink-faint);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  transition: transform 0.4s ease, color 0.3s ease, border-color 0.3s ease;
+  user-select: none;
+}
+
+.dim-card.open .dim-toggle
+{
+  transform: rotate(45deg);
+  color: var(--cinnabar);
+  border-color: var(--cinnabar);
+}
+
+.dim-hint
+{
+  text-align: center;
+  font-size: 12.5px;
+  letter-spacing: 0.28em;
+  color: var(--ink-faint);
+  margin: 26px 0 0;
+}
+
+/* ============================================================
+   8. 流程图通用（三级流水线、三板斧、固化路径）
+   ============================================================ */
+.flow
+{
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 44px 0;
+}
+
+.flow-step
+{
+  flex: 1 1 0;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 26px 24px;
+  position: relative;
+}
+
+.flow-step.hot
+{
+  border-color: rgba(166, 61, 42, 0.45);
+  background: linear-gradient(180deg, rgba(166, 61, 42, 0.045), rgba(166, 61, 42, 0.012));
+}
+
+.flow-step .fs-tag
+{
+  font-family: var(--serif);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--cinnabar);
+  margin-bottom: 10px;
+}
+
+.flow-step h4
+{
+  font-size: 1.22rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.flow-step p
+{
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+.flow-arrow
+{
+  flex: 0 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cinnabar);
+  font-family: var(--serif);
+  font-size: 22px;
+}
+
+.flow-arrow::before
+{
+  content: "→";
+}
+
+/* 档位徽章 */
+.tier-row
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 36px 0;
+}
+
+.tier
+{
+  flex: 1 1 150px;
+  text-align: center;
+  padding: 24px 18px 20px;
+  border: 1px dashed var(--tan);
+  border-radius: 4px;
+  background: rgba(243, 237, 225, 0.5);
+}
+
+.tier b
+{
+  display: block;
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--cinnabar);
+  line-height: 1.2;
+}
+
+.tier i
+{
+  display: block;
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  color: var(--ink-faint);
+  margin-top: 6px;
+}
+
+/* 决策点 chips */
+.chip-row
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0 8px;
+}
+
+.chip
+{
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--cinnabar-deep);
+  border: 1px solid rgba(166, 61, 42, 0.4);
+  background: rgba(166, 61, 42, 0.06);
+  border-radius: 999px;
+  padding: 6px 18px;
+}
+
+/* 来源 chips（解答域五路等） */
+.src-row
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.src
+{
+  font-size: 13.5px;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  background: var(--paper-card);
+  border-radius: 3px;
+  padding: 7px 14px;
+}
+
+.src b
+{
+  color: var(--cinnabar);
+  font-family: var(--serif);
+  margin-right: 6px;
+}
+</style>
+<style>
+/* ============================================================
+   9. 三/四推理对比卡片（tri / quad）
+   ============================================================ */
+.tri
+{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 48px 0;
+}
+
+.quad
+{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin: 48px 0;
+}
+
+.tri-card
+{
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 30px 26px;
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.tri-card:hover
+{
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -22px rgba(60, 45, 30, 0.35);
+}
+
+.tri-card.hot
+{
+  border: 1.5px solid var(--cinnabar);
+  background: linear-gradient(180deg, rgba(166, 61, 42, 0.05), rgba(166, 61, 42, 0.015));
+}
+
+.tri-badge
+{
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  font-family: var(--serif);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: #fdf8f0;
+  background: var(--cinnabar);
+  border-radius: 2px;
+  padding: 3px 12px 3px 14px;
+}
+
+.tri-card h3
+{
+  font-size: 1.6rem;
+  letter-spacing: 0.16em;
+  margin-bottom: 4px;
+}
+
+.tri-card .tri-en
+{
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--tan-deep);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.tri-dir
+{
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cinnabar-deep);
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.tri-card p
+{
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.tri-card p b
+{
+  color: var(--ink);
+}
+
+/* 溯因应用链 */
+.abd-chain
+{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
+  margin: 40px 0 8px;
+}
+
+.abd-node
+{
+  flex: 1 1 180px;
+  padding: 20px 22px;
+  border-top: 2px solid var(--tan);
+  background: var(--paper-card);
+  border-left: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.abd-node:first-child
+{
+  border-left: none;
+  border-top-color: var(--cinnabar);
+}
+
+.abd-node b
+{
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+
+.abd-node:first-child b
+{
+  color: var(--cinnabar);
+}
+
+.abd-node span
+{
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-faint);
+  display: block;
+}
+
+/* ============================================================
+   10. 问题域 / 解答域
+   ============================================================ */
+.domains
+{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0 28px;
+  align-items: stretch;
+  margin: 48px 0;
+}
+
+.domain
+{
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 30px 28px;
+}
+
+.domain h3
+{
+  font-size: 1.35rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 4px;
+}
+
+.domain .dom-en
+{
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--tan-deep);
+  margin-bottom: 16px;
+}
+
+.domain p
+{
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.domain.q
+{
+  border-top: 3px solid var(--cinnabar);
+}
+
+.domain.a
+{
+  border-top: 3px solid var(--tan-deep);
+}
+
+.domain-match
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--cinnabar);
+}
+
+.domain-match .m-line
+{
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(180deg, transparent, var(--cinnabar), transparent);
+}
+
+.domain-match b
+{
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.3em;
+  writing-mode: vertical-rl;
+  color: var(--cinnabar);
+}
+
+/* ============================================================
+   11. 问题树
+   ============================================================ */
+.qtree
+{
+  margin: 48px 0 24px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper-card);
+  padding: 12px 26px 22px;
+}
+
+.qtree details
+{
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.qtree details:last-child
+{
+  border-bottom: none;
+}
+
+.qtree summary
+{
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 17px 4px;
+  font-size: 15px;
+  color: var(--ink);
+  transition: color 0.25s ease;
+}
+
+.qtree summary::-webkit-details-marker
+{
+  display: none;
+}
+
+.qtree summary:hover
+{
+  color: var(--cinnabar);
+}
+
+.qtree summary .qmark
+{
+  flex: 0 0 auto;
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cinnabar);
+  letter-spacing: 0.08em;
+}
+
+.qtree summary .qplus
+{
+  margin-left: auto;
+  flex: 0 0 auto;
+  font-family: var(--serif);
+  color: var(--tan-deep);
+  font-size: 17px;
+  transition: transform 0.35s ease;
+}
+
+.qtree details[open] > summary .qplus
+{
+  transform: rotate(45deg);
+  color: var(--cinnabar);
+}
+
+.qtree .qbody
+{
+  padding: 2px 4px 18px 44px;
+}
+
+.qtree .qbody p
+{
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.qtree details details
+{
+  border-bottom: 1px dashed var(--line-soft);
+  margin-left: 0;
+}
+
+.qtree details details summary
+{
+  font-size: 14px;
+  color: var(--ink-soft);
+  padding: 13px 4px;
+}
+
+.qleaf
+{
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  border-radius: 2px;
+  padding: 2px 10px;
+  margin-left: 10px;
+  vertical-align: 1px;
+}
+
+.qleaf.desk
+{
+  color: var(--tan-deep);
+  border: 1px solid var(--tan);
+  background: rgba(179, 164, 136, 0.08);
+}
+
+.qleaf.field
+{
+  color: var(--cinnabar-deep);
+  border: 1px solid rgba(166, 61, 42, 0.4);
+  background: rgba(166, 61, 42, 0.07);
+}
+
+/* ============================================================
+   12. 香农信息论
+   ============================================================ */
+.shannon-formula
+{
+  margin: 56px auto;
+  max-width: 660px;
+  text-align: center;
+  padding: 44px 32px 40px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.shannon-formula .f-main
+{
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.6vw, 2.15rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+}
+
+.shannon-formula .f-main .accent
+{
+  color: var(--cinnabar);
+}
+
+.shannon-formula .f-math
+{
+  margin-top: 18px;
+  font-family: var(--serif);
+  font-size: 14.5px;
+  color: var(--ink-faint);
+  letter-spacing: 0.1em;
+}
+
+.shannon-formula .f-eg
+{
+  margin-top: 22px;
+  font-size: 13.5px;
+  color: var(--ink-faint);
+}
+
+.shannon-formula .f-eg b
+{
+  color: var(--ink-soft);
+}
+
+.corollary
+{
+  margin: 18px 0;
+  padding: 26px 30px;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cinnabar);
+  border-radius: 0 4px 4px 0;
+}
+
+.corollary h3
+{
+  font-size: 1.18rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.corollary h3 .co-no
+{
+  color: var(--cinnabar);
+  margin-right: 10px;
+  font-size: 0.95em;
+  letter-spacing: 0.2em;
+}
+
+.corollary p
+{
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.corollary p b
+{
+  color: var(--ink);
+}
+
+/* ============================================================
+   13. 数据纪律
+   ============================================================ */
+.rule
+{
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 26px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.rule:last-of-type
+{
+  border-bottom: none;
+}
+
+.rule-no
+{
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--cinnabar);
+  letter-spacing: 0.04em;
+  padding-top: 6px;
+}
+
+.rule-body h3
+{
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.rule-body p
+{
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.rule-body p b
+{
+  color: var(--ink);
+}
+
+.grade-row
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0 6px;
+}
+
+.grade
+{
+  flex: 1 1 160px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 14px 16px;
+  background: var(--paper-card);
+}
+
+.grade b
+{
+  display: block;
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.grade.gA b { color: var(--cinnabar); }
+.grade.gB b { color: var(--tan-deep); }
+.grade.gC b { color: var(--ink-faint); }
+
+.grade span
+{
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  line-height: 1.7;
+}
+
+.checklist
+{
+  list-style: none;
+  margin: 16px 0 4px;
+}
+
+.checklist li
+{
+  position: relative;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  padding-left: 30px;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+.checklist li::before
+{
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 12px;
+  height: 6px;
+  border-left: 2px solid var(--cinnabar);
+  border-bottom: 2px solid var(--cinnabar);
+  transform: rotate(-45deg);
+}
+
+/* ============================================================
+   14. 对标
+   ============================================================ */
+.bench
+{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0 20px;
+  align-items: stretch;
+  margin: 26px 0;
+  padding: 28px 30px;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.bench .b-side h4
+{
+  font-size: 1.28rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.bench .b-side .b-role
+{
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--tan-deep);
+  margin-bottom: 12px;
+}
+
+.bench .b-side p
+{
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+.bench .b-side.local
+{
+  text-align: right;
+}
+
+.bench .b-vs
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.bench .b-vs i
+{
+  font-style: normal;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--cinnabar);
+  letter-spacing: 0.1em;
+}
+
+.bench .b-vs::before,
+.bench .b-vs::after
+{
+  content: "";
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(180deg, transparent, var(--tan), transparent);
+}
+
+.bench-ask
+{
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--cinnabar-deep);
+  grid-column: 1 / -1;
+  text-align: center;
+}
+</style>
+<style>
+/* ============================================================
+   15. 案例卡片墙
+   ============================================================ */
+.case-wall
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 20px;
+}
+
+.case-card
+{
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 34px 32px 30px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.case-card::before
+{
+  content: attr(data-no);
+  position: absolute;
+  top: -18px;
+  right: 6px;
+  font-family: var(--serif);
+  font-size: 7.2rem;
+  font-weight: 900;
+  color: rgba(166, 61, 42, 0.06);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.case-card:hover
+{
+  transform: translateY(-4px);
+  border-color: var(--cinnabar-soft);
+  box-shadow: 0 22px 48px -26px rgba(60, 45, 30, 0.4);
+}
+
+.case-card .c-tag
+{
+  font-size: 11.5px;
+  letter-spacing: 0.3em;
+  color: var(--cinnabar);
+  font-family: var(--serif);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.case-card h3
+{
+  font-size: 1.42rem;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.case-card .c-figs
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.case-card .c-figs b
+{
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  font-weight: 900;
+  color: var(--cinnabar);
+  font-variant-numeric: tabular-nums;
+}
+
+.case-card .c-figs span
+{
+  font-size: 12px;
+  color: var(--ink-faint);
+  align-self: flex-end;
+  padding-bottom: 3px;
+  letter-spacing: 0.04em;
+}
+
+.case-card p
+{
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.case-card p b
+{
+  color: var(--ink);
+}
+
+.case-card .c-errata
+{
+  margin-top: auto;
+  padding: 12px 16px;
+  background: rgba(166, 61, 42, 0.05);
+  border-left: 2px solid var(--cinnabar);
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  border-radius: 0 3px 3px 0;
+}
+
+.case-card .c-errata b
+{
+  color: var(--cinnabar-deep);
+}
+
+.case-card .c-link
+{
+  margin-top: 14px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   16. 固化路径 & 金句
+   ============================================================ */
+.solidify
+{
+  display: flex;
+  align-items: stretch;
+  margin: 48px 0;
+}
+
+.solidify .so-step
+{
+  flex: 1 1 0;
+  text-align: center;
+  padding: 30px 22px 26px;
+  border: 1px solid var(--line);
+  background: var(--paper-card);
+}
+
+.solidify .so-step:first-child
+{
+  border-radius: 4px 0 0 4px;
+}
+
+.solidify .so-step:last-child
+{
+  border-radius: 0 4px 4px 0;
+  border-top: 3px solid var(--cinnabar);
+}
+
+.solidify .so-step + .so-step
+{
+  border-left: none;
+  position: relative;
+}
+
+.solidify .so-step + .so-step::before
+{
+  content: "→";
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  line-height: 28px;
+  text-align: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--cinnabar);
+  font-family: var(--serif);
+  z-index: 2;
+}
+
+.so-step .so-no
+{
+  font-family: var(--serif);
+  font-size: 11.5px;
+  letter-spacing: 0.34em;
+  color: var(--tan-deep);
+  margin-bottom: 12px;
+}
+
+.so-step h4
+{
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.so-step p
+{
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--ink-faint);
+}
+
+.golden
+{
+  margin: 96px auto 30px;
+  max-width: 760px;
+  text-align: center;
+}
+
+.golden .g-mark
+{
+  font-family: var(--serif);
+  font-size: 4rem;
+  line-height: 0.4;
+  color: var(--cinnabar);
+  opacity: 0.5;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.golden p
+{
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 3.6vw, 2.15rem);
+  font-weight: 700;
+  line-height: 2.05;
+  letter-spacing: 0.1em;
+}
+
+.golden p .accent
+{
+  color: var(--cinnabar);
+}
+
+/* ============================================================
+   17. 收尾页 & 页脚
+   ============================================================ */
+#finale
+{
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 16vh 28px 12vh;
+  max-width: 860px;
+  margin: 0 auto;
+  border-top: 1px solid var(--line-soft);
+  scroll-margin-top: var(--topbar-h);
+}
+
+#finale .fin-title
+{
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  margin-bottom: 34px;
+}
+
+#finale .fin-sub
+{
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  line-height: 2.1;
+  max-width: 560px;
+  margin-bottom: 54px;
+}
+
+#finale .fin-meta
+{
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--ink-faint);
+  margin-bottom: 30px;
+}
+
+.contact-row
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 40px;
+  margin-bottom: 20px;
+}
+
+.contact-item
+{
+  font-size: 13.5px;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+}
+
+.contact-item b
+{
+  font-family: var(--serif);
+  color: var(--ink-soft);
+  margin-right: 8px;
+  letter-spacing: 0.2em;
+}
+
+footer
+{
+  border-top: 1px solid var(--line);
+  padding: 34px 28px 44px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--ink-faint);
+}
+
+footer .f-seal
+{
+  display: inline-block;
+  font-family: var(--serif);
+  color: var(--cinnabar);
+  letter-spacing: 0.34em;
+  margin-bottom: 10px;
+}
+</style>
+<style>
+/* ============================================================
+   18. v2 新增组件
+   ============================================================ */
+
+/* 18.1 每章末：前置知识补给卡 + 自读建议标签 */
+.prereq
+{
+  margin-top: 68px;
+  padding: 22px 26px 18px;
+  background: rgba(243, 237, 225, 0.55);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+}
+
+.prereq-head
+{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--serif);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--ink-faint);
+  margin-bottom: 12px;
+}
+
+.prereq ul
+{
+  list-style: none;
+}
+
+.prereq li
+{
+  position: relative;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--ink-faint);
+  padding-left: 18px;
+  margin-bottom: 5px;
+}
+
+.prereq li::before
+{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.86em;
+  width: 8px;
+  height: 1px;
+  background: var(--tan);
+}
+
+.prereq li b
+{
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.prereq li i
+{
+  font-style: normal;
+  color: var(--tan-deep);
+}
+
+.readtag
+{
+  flex: 0 0 auto;
+  font-family: var(--serif);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  border-radius: 2px;
+  padding: 3px 12px 3px 14px;
+}
+
+.readtag.must
+{
+  color: #fdf8f0;
+  background: var(--cinnabar);
+}
+
+.readtag.opt
+{
+  color: var(--cinnabar-deep);
+  border: 1px solid rgba(166, 61, 42, 0.4);
+  background: rgba(166, 61, 42, 0.06);
+}
+
+.readtag.self
+{
+  color: var(--ink-faint);
+  border: 1px solid var(--line);
+  background: var(--paper-card);
+}
+
+/* 18.2 第四章 · 义乌三地考古：战点标记 */
+.battle
+{
+  display: inline-block;
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--cinnabar);
+  margin-bottom: 10px;
+}
+
+.battle i
+{
+  font-style: normal;
+  color: var(--tan-deep);
+  margin-left: 10px;
+  letter-spacing: 0.18em;
+}
+
+/* 18.3 第十三章 · 穷尽枚举墙 */
+.enumwall
+{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 40px 0;
+}
+
+.enum
+{
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--cinnabar);
+  border-radius: 4px;
+  padding: 22px 22px 18px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.enum:hover
+{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -20px rgba(60, 45, 30, 0.32);
+}
+
+.enum.muted
+{
+  border-top-color: var(--tan);
+}
+
+.enum .e-no
+{
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(1.45rem, 2.8vw, 2rem);
+  color: var(--cinnabar);
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+}
+
+.enum.muted .e-no
+{
+  color: var(--tan-deep);
+}
+
+.enum h4
+{
+  font-size: 1.02rem;
+  letter-spacing: 0.1em;
+  margin: 6px 0 4px;
+}
+
+.enum p
+{
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+.enum .e-src
+{
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+  color: var(--ink-faint);
+}
+
+/* 18.4 第十九章 · 知识索引书单 */
+.biblio
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.bib
+{
+  display: flex;
+  gap: 18px;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 20px 22px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.bib:hover
+{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -20px rgba(60, 45, 30, 0.32);
+}
+
+.bib .b-mark
+{
+  flex: 0 0 auto;
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  color: rgba(166, 61, 42, 0.5);
+}
+
+.bib h4
+{
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.bib .b-au
+{
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--tan-deep);
+  margin-bottom: 8px;
+}
+
+.bib p
+{
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+/* 18.5 第二十章 · 演讲路径 */
+.pathrow
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.pathcard
+{
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 30px 28px 26px;
+}
+
+.pathcard.hot
+{
+  border-top: 3px solid var(--cinnabar);
+}
+
+.pathcard .p-tag
+{
+  font-family: var(--serif);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--cinnabar);
+  margin-bottom: 10px;
+}
+
+.pathcard h3
+{
+  font-size: 1.35rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.pathcard .p-sub
+{
+  font-size: 13px;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+}
+
+.pathsteps
+{
+  list-style: none;
+  margin-top: 16px;
+}
+
+.pathsteps li
+{
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 14px;
+  line-height: 1.75;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  color: var(--ink-soft);
+}
+
+.pathsteps li:last-child
+{
+  border-bottom: none;
+}
+
+.pathsteps .p-no
+{
+  flex: 0 0 auto;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--cinnabar);
+}
+
+.pathsteps li .p-skip
+{
+  color: var(--ink-faint);
+}
+
+.pathsteps li .p-skip b
+{
+  color: var(--tan-deep);
+  font-weight: 600;
+}
+
+/* ============================================================
+   19. 响应式
+   ============================================================ */
+@media (max-width: 960px)
+{
+  .dim-grid
+  {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tri
+  {
+    grid-template-columns: 1fr;
+  }
+
+  .quad
+  {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .enumwall
+  {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pathrow
+  {
+    grid-template-columns: 1fr;
+  }
+
+  .case-wall
+  {
+    grid-template-columns: 1fr;
+  }
+
+  .solidify
+  {
+    flex-direction: column;
+  }
+
+  .solidify .so-step,
+  .solidify .so-step:first-child,
+  .solidify .so-step:last-child
+  {
+    border-radius: 4px;
+    border-left: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+  }
+
+  .solidify .so-step + .so-step
+  {
+    border-top: none;
+  }
+
+  .solidify .so-step + .so-step::before
+  {
+    left: 50%;
+    top: -1px;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .flow
+  {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-arrow
+  {
+    flex: 0 0 34px;
+  }
+
+  .flow-arrow::before
+  {
+    content: "↓";
+  }
+}
+
+@media (max-width: 720px)
+{
+  body
+  {
+    font-size: 16px;
+  }
+
+  :root
+  {
+    --topbar-h: 66px;
+  }
+
+  #chapnav
+  {
+    height: 40px;
+    padding: 0 12px;
+  }
+
+  #chapnav .brand
+  {
+    display: none;
+  }
+
+  .chapter
+  {
+    padding: 13vh 22px 9vh;
+  }
+
+  /* 时间轴改为左侧单轨 */
+  .timeline::before
+  {
+    left: 10px;
+  }
+
+  .tl-item,
+  .tl-item:nth-child(even)
+  {
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0 56px 42px;
+  }
+
+  .tl-item:nth-child(odd) .tl-card
+  {
+    text-align: left;
+  }
+
+  .tl-item:nth-child(odd)::after,
+  .tl-item:nth-child(even)::after
+  {
+    left: 3px;
+    right: auto;
+  }
+
+  .dim-grid,
+  .quad,
+  .enumwall,
+  .biblio
+  {
+    grid-template-columns: 1fr;
+  }
+
+  .domains
+  {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .domain-match
+  {
+    flex-direction: row;
+  }
+
+  .domain-match .m-line
+  {
+    width: auto;
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent, var(--cinnabar), transparent);
+  }
+
+  .domain-match b
+  {
+    writing-mode: horizontal-tb;
+  }
+
+  .bench
+  {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 26px 22px;
+  }
+
+  .bench .b-side.local
+  {
+    text-align: left;
+  }
+
+  .bench .b-vs
+  {
+    flex-direction: row;
+  }
+
+  .bench .b-vs::before,
+  .bench .b-vs::after
+  {
+    width: auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--tan), transparent);
+  }
+
+  .rule
+  {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 32px 0;
+  }
+
+  .rule-no
+  {
+    font-size: 2rem;
+  }
+
+  .pull
+  {
+    margin: 48px 0;
+  }
+
+  .qtree
+  {
+    padding: 8px 16px 16px;
+  }
+
+  .qtree .qbody
+  {
+    padding-left: 20px;
+  }
+
+  .abd-chain
+  {
+    flex-direction: column;
+  }
+
+  .abd-node
+  {
+    border-left: none;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .abd-node:first-child
+  {
+    border-top: 2px solid var(--cinnabar);
+  }
+}
+
+/* ============================================================
+   20. 打印适配
+   ============================================================ */
+@media print
+{
+  body
+  {
+    background: #fff;
+    font-size: 12pt;
+  }
+
+  #topbar,
+  .scroll-hint
+  {
+    display: none !important;
+  }
+
+  .chapter,
+  #finale
+  {
+    padding: 40px 0;
+    max-width: 100%;
+    page-break-before: always;
+  }
+
+  #cover
+  {
+    min-height: auto;
+    page-break-after: always;
+  }
+
+  .reveal
+  {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .dim-card
+  {
+    cursor: default;
+    break-inside: avoid;
+  }
+
+  .dim-detail
+  {
+    max-height: none !important;
+    opacity: 1 !important;
+    margin-top: 16px;
+  }
+
+  .dim-toggle
+  {
+    display: none;
+  }
+
+  .qtree details
+  {
+    break-inside: avoid;
+  }
+
+  .qtree details > .qbody,
+  .qtree details details
+  {
+    display: block;
+  }
+
+  .case-card,
+  .rule,
+  .bench,
+  .corollary,
+  .enum,
+  .bib,
+  .pathcard,
+  .prereq
+  {
+    break-inside: avoid;
+  }
+
+  a
+  {
+    color: var(--ink);
+    border-bottom: none;
+  }
+}
+</style>
+<style>
+/* ============================================================
+   21. v3 新增组件：知识宇宙路标卡 / 起转承合叙事弧
+   ============================================================ */
+
+/* 21.1 章首眉线：起转承合段位小标签（克制的灰红小字） */
+.arc-tag
+{
+  margin-left: auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  font-family: var(--serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--tan-deep);
+  white-space: nowrap;
+}
+
+.arc-tag b
+{
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--cinnabar-soft);
+}
+
+/* 21.2 第一章：六个知识路标卡 */
+.sites
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  margin: 60px 0 16px;
+}
+
+.site
+{
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.site:hover
+{
+  transform: translateY(-3px);
+  border-color: var(--cinnabar-soft);
+  box-shadow: 0 16px 36px -22px rgba(60, 45, 30, 0.35);
+}
+
+.site-shot
+{
+  display: block;
+  position: relative;
+  border-bottom: none;
+  overflow: hidden;
+}
+
+.site-shot img
+{
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.site-shot.center img
+{
+  object-position: center center;
+}
+
+.site:hover .site-shot img
+{
+  transform: scale(1.025);
+}
+
+.site-num
+{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  color: #fdf8f0;
+  background: rgba(166, 61, 42, 0.92);
+  padding: 4px 12px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 rgba(126, 45, 30, 0.25);
+  font-variant-numeric: tabular-nums;
+}
+
+.site-body
+{
+  padding: 22px 24px 24px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.site-idx
+{
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--tan-deep);
+  margin-bottom: 8px;
+}
+
+.site-body h3
+{
+  font-size: 1.26rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.site-url
+{
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  margin: 6px 0 12px;
+}
+
+.site-tag
+{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.site-body .desc
+{
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+/* 21.3 起转承合：手绘风叙事弧 */
+.arc
+{
+  display: flex;
+  align-items: stretch;
+  margin: 44px 0 12px;
+}
+
+.arc-step
+{
+  flex: 1 1 0;
+  text-align: center;
+  padding: 30px 16px 24px;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.arc-step.hot
+{
+  border-color: rgba(166, 61, 42, 0.45);
+  background: linear-gradient(180deg, rgba(166, 61, 42, 0.045), rgba(166, 61, 42, 0.012));
+}
+
+.arc-char
+{
+  position: relative;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 2.1rem;
+  color: var(--cinnabar);
+  background: var(--paper);
+  border: 1.6px solid rgba(166, 61, 42, 0.6);
+  border-radius: 47% 53% 55% 45% / 53% 46% 54% 47%;
+}
+
+.arc-char::after
+{
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(179, 164, 136, 0.8);
+  border-radius: 53% 47% 45% 55% / 46% 54% 47% 53%;
+  transform: rotate(-3deg);
+}
+
+.arc-step h4
+{
+  font-size: 1.08rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.arc-step p
+{
+  font-size: 12.5px;
+  line-height: 1.85;
+  color: var(--ink-faint);
+}
+
+.arc-step p b
+{
+  color: var(--cinnabar-deep);
+  font-weight: 600;
+}
+
+.arc-link
+{
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arc-link svg
+{
+  width: 38px;
+  height: 18px;
+  overflow: visible;
+}
+
+@media (max-width: 960px)
+{
+  .sites
+  {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px)
+{
+  .arc
+  {
+    flex-direction: column;
+  }
+
+  .arc-link
+  {
+    flex: 0 0 40px;
+  }
+
+  .arc-link svg
+  {
+    transform: rotate(90deg);
+  }
+
+  .arc-tag
+  {
+    display: none;
+  }
+}
+
+@media print
+{
+  .site,
+  .arc-step
+  {
+    break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+<!-- ============================================================
+     顶部：进度条 + 章节导航
+     ============================================================ -->
+<header id="topbar">
+  <div id="progress"><span id="progress-fill"></span></div>
+  <nav id="chapnav" aria-label="章节导航">
+    <span class="brand">立体<b>调研</b></span>
+    <a class="navlink" href="#cover"><i>00</i><em>封面</em></a>
+    <a class="navlink" href="#ch1"><i>01</i><em>知识宇宙</em></a>
+    <a class="navlink" href="#ch2"><i>02</i><em>引子</em></a>
+    <a class="navlink" href="#ch3"><i>03</i><em>五个职业</em></a>
+    <a class="navlink" href="#ch4"><i>04</i><em>义乌考古</em></a>
+    <a class="navlink" href="#ch5"><i>05</i><em>六维框架</em></a>
+    <a class="navlink" href="#ch6"><i>06</i><em>三级调研</em></a>
+    <a class="navlink" href="#ch7"><i>07</i><em>四线研究</em></a>
+    <a class="navlink" href="#ch8"><i>08</i><em>点线面体</em></a>
+    <a class="navlink" href="#ch9"><i>09</i><em>溯因推理</em></a>
+    <a class="navlink" href="#ch10"><i>10</i><em>取数</em></a>
+    <a class="navlink" href="#ch11"><i>11</i><em>问题链</em></a>
+    <a class="navlink" href="#ch12"><i>12</i><em>信息论</em></a>
+    <a class="navlink" href="#ch13"><i>13</i><em>穷尽思维</em></a>
+    <a class="navlink" href="#ch14"><i>14</i><em>数据纪律</em></a>
+    <a class="navlink" href="#ch15"><i>15</i><em>对标</em></a>
+    <a class="navlink" href="#ch16"><i>16</i><em>实战案例</em></a>
+    <a class="navlink" href="#ch17"><i>17</i><em>认知自白</em></a>
+    <a class="navlink" href="#ch18"><i>18</i><em>工具化愿景</em></a>
+    <a class="navlink" href="#ch19"><i>19</i><em>知识索引</em></a>
+    <a class="navlink" href="#ch20"><i>20</i><em>演讲路径</em></a>
+    <a class="navlink" href="#finale"><i>∞</i><em>讨论</em></a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================================================
+     封面
+     ============================================================ -->
+<section id="cover" aria-label="封面">
+  <div class="cover-inner">
+    <div class="cover-seal reveal">方法论体系</div>
+    <p class="cover-kicker reveal" data-delay="1">内部汇报分享 · 调研方法论</p>
+    <h1 class="cover-title reveal" data-delay="2">立体调研</h1>
+    <svg class="cover-title-underline reveal" data-delay="2" viewBox="0 0 420 14" aria-hidden="true">
+      <path d="M6 9 C 90 3, 200 12, 414 6" fill="none" stroke="#a63d2a" stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>
+      <path d="M60 11 C 160 6, 280 13, 380 9" fill="none" stroke="#a63d2a" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+    </svg>
+    <p class="cover-sub reveal" data-delay="3">
+      把一身调研本领，成体系交给团队<br>
+      ——从五个职业，到一套方法论
+    </p>
+    <p class="cover-v2note reveal" data-delay="3">v3 · 增补：知识宇宙开场 · 起转承合叙事</p>
+    <p class="cover-hook reveal" data-delay="4">
+      调研的终点不是几十万字报告，<br>
+      而是<span class="accent">猎捕那个异常的数据点</span>。
+    </p>
+    <p class="cover-meta reveal" data-delay="5">V3 · 公司全员分享 · 2026 年 9 月</p>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>向下滚动</span>
+    <span class="chev"></span>
+  </div>
+</section>
+
+<!-- ============================================================
+     第一章 · 知识宇宙：知识是可计量的
+     ============================================================ -->
+<section id="ch1" class="chapter wide" data-nav="01">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第一章 · 知识宇宙<span class="arc-tag"><b>起</b>知识宇宙可计量</span></div>
+    <h2>知识宇宙：<span class="accent">知识是可计量的</span></h2>
+    <p class="ch-sub">没有什么是真的无限的——六个网站，六张知识的地图</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      人们常说"吾生也有涯，而知也无涯"。但严格来说，<strong>没有什么是真的无限的</strong>——即使是大海，甚至是宇宙，都是可计量的，只是人类的寿命太短暂，短到把"很大"误读成了"无限"。
+    </p>
+
+    <p class="reveal">
+      九年义务教育，就那么些知识，却要学九年——不是因为知识太多，而是因为<strong>循序渐进有成本</strong>：每个知识点都站在前一个知识点的肩膀上。放大到每一个学科去看，它的知识图谱里，就是一个研究领域和一个光点。
+    </p>
+
+    <blockquote class="pull reveal">
+      吾生也有涯，而知也<span class="accent">并非</span>无涯。<br>
+      知识是一片宇宙——而宇宙，<span class="accent">是可以被计量的</span>。
+    </blockquote>
+
+    <p class="reveal">
+      一段坦白：因为我必须真的了解底层原理——循序渐进、依赖关系、构成所有的知识点——所以我到处寻找"知识的地图"。<strong>下面六个网站，是这趟寻找的路标。</strong>
+    </p>
+  </div>
+
+  <div class="sites">
+    <article class="site reveal">
+      <a class="site-shot" href="https://www.edukg.cn/" target="_blank" rel="noopener">
+        <img src="assets/shot-edukg.png" alt="EduKG 教育知识图谱服务平台首页实拍" loading="lazy">
+        <span class="site-num">236,934 个知识点</span>
+      </a>
+      <div class="site-body">
+        <div class="site-idx">路标 01</div>
+        <h3>EduKG · 教育知识图谱服务平台</h3>
+        <a class="site-url" href="https://www.edukg.cn/" target="_blank" rel="noopener">edukg.cn ↗</a>
+        <p class="site-tag">把小初高教材知识点，全部串成一张图</p>
+        <p class="desc">北师大未来教育高精尖创新中心出品：前后置依赖、学习脉络、知识点寻路——输入任意两个知识点，自动画出最短学习路径。首页实拍：9 门学科、407 本教材、236,934 个知识点。</p>
+      </div>
+    </article>
+
+    <article class="site reveal" data-delay="1">
+      <a class="site-shot center" href="https://withmarble.com/curriculum" target="_blank" rel="noopener">
+        <img src="assets/shot-marble.png" alt="Marble 3D 课程星图实拍（深色星空）" loading="lazy">
+        <span class="site-num">1,590 概念 · 3,221 前置边</span>
+      </a>
+      <div class="site-body">
+        <div class="site-idx">路标 02</div>
+        <h3>Marble</h3>
+        <a class="site-url" href="https://withmarble.com/curriculum" target="_blank" rel="noopener">withmarble.com/curriculum ↗</a>
+        <p class="site-tag">开源 3D 课程星图："Everything a child learns"</p>
+        <p class="desc">每个光点是一个概念，线条是前置关系，可旋转缩放；点开任意一个点，能一路追出"必须先学会什么"。实测：1,590 个概念、3,221 条前置依赖边，由 7 套美英课程框架组装，ODbL 协议开源。</p>
+      </div>
+    </article>
+
+    <article class="site reveal">
+      <a class="site-shot" href="https://www.theknowledgecosmos.com/" target="_blank" rel="noopener">
+        <img src="assets/shot-cosmos.png" alt="The Knowledge Cosmos 首页实拍" loading="lazy">
+        <span class="site-num">1,700 万篇论文</span>
+      </a>
+      <div class="site-body">
+        <div class="site-idx">路标 03</div>
+        <h3>The Knowledge Cosmos</h3>
+        <a class="site-url" href="https://www.theknowledgecosmos.com/" target="_blank" rel="noopener">theknowledgecosmos.com ↗</a>
+        <p class="site-tag">Research, re-imagined——能飞进去的论文宇宙</p>
+        <p class="desc">1,700 万篇论文做成语义向量化宇宙：方向相近的论文自动聚成星系与星座，学科边界像星云一样晕开——像逛宇宙一样，飞入任何一个研究领域。</p>
+      </div>
+    </article>
+    <article class="site reveal" data-delay="1">
+      <a class="site-shot center" href="https://paperscape.org/" target="_blank" rel="noopener">
+        <img src="assets/shot-paperscape.png" alt="Paperscape 引用关系星图实拍（深色）" loading="lazy">
+        <span class="site-num">3,165,223 篇论文</span>
+      </a>
+      <div class="site-body">
+        <div class="site-idx">路标 04</div>
+        <h3>Paperscape</h3>
+        <a class="site-url" href="https://paperscape.org/" target="_blank" rel="noopener">paperscape.org ↗</a>
+        <p class="site-tag">arXiv 全量论文的引用关系星图</p>
+        <p class="desc">3,165,223 篇论文（2026-09-22 更新）：圆点大小等于被引次数，可按学科、按年代着色——一片星空的明暗，就是一片领域的兴衰。</p>
+      </div>
+    </article>
+
+    <article class="site reveal">
+      <a class="site-shot" href="https://openknowledgemaps.org/" target="_blank" rel="noopener">
+        <img src="assets/shot-okm.png" alt="Open Knowledge Maps 首页实拍" loading="lazy">
+        <span class="site-num">4 亿+ 文献 · 100 万+ 用户</span>
+      </a>
+      <div class="site-body">
+        <div class="site-idx">路标 05</div>
+        <h3>Open Knowledge Maps</h3>
+        <a class="site-url" href="https://openknowledgemaps.org/" target="_blank" rel="noopener">openknowledgemaps.org ↗</a>
+        <p class="site-tag">输入一个主题，AI 自动生成一张研究地图</p>
+        <p class="desc">可检索 4 亿+ 文献输出（BASE），服务 100 万+ 用户，承诺 0 幻觉——只基于元数据作图，不编造任何一篇文献。</p>
+      </div>
+    </article>
+
+    <article class="site reveal" data-delay="1">
+      <a class="site-shot" href="https://www.connectedpapers.com/" target="_blank" rel="noopener">
+        <img src="assets/shot-connectedpapers.png" alt="Connected Papers 首页实拍" loading="lazy">
+        <span class="site-num">一键成图</span>
+      </a>
+      <div class="site-body">
+        <div class="site-idx">路标 06</div>
+        <h3>Connected Papers</h3>
+        <a class="site-url" href="https://www.connectedpapers.com/" target="_blank" rel="noopener">connectedpapers.com ↗</a>
+        <p class="site-tag">输入一篇论文，一键画出它的邻域关系网</p>
+        <p class="desc">相似论文、前驱工作、衍生工作一次铺开——从任何一篇种子论文出发，看清它在知识宇宙里的坐标。</p>
+      </div>
+    </article>
+  </div>
+
+  <blockquote class="pull reveal">
+    以上六个网站，全部属于<span class="accent">图书情报学与知识图谱</span>的范畴。<br>
+    而今天要讲的这套调研方法论，就用情报学的叙事串起来：<br>
+    咨询、科研、情报——表面是三个行业，<span class="accent">底层共享同一台引擎：溯因式推理</span>。
+  </blockquote>
+
+  <h3 class="h-block reveal">全篇叙事弧：起、承、转、合</h3>
+  <div class="arc reveal">
+    <div class="arc-step">
+      <div class="arc-char">起</div>
+      <h4>知识宇宙可计量</h4>
+      <p>知识并非无涯，<br>是可以数清光点的宇宙<br><b>第01章 · 知识宇宙</b></p>
+    </div>
+    <div class="arc-link"><svg viewBox="0 0 38 18" aria-hidden="true"><path d="M2 11 C 11 3, 23 16, 32 8" fill="none" stroke="#a63d2a" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/><path d="M28.5 4.5 L 33.5 8 L 28 11.5" fill="none" stroke="#a63d2a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/></svg></div>
+    <div class="arc-step">
+      <div class="arc-char">承</div>
+      <h4>穷尽立体，无死角调研</h4>
+      <p>数据之大，不在于其大，<br>而在于其全<br><b>方法论主体各章</b></p>
+    </div>
+    <div class="arc-link"><svg viewBox="0 0 38 18" aria-hidden="true"><path d="M2 11 C 11 3, 23 16, 32 8" fill="none" stroke="#a63d2a" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/><path d="M28.5 4.5 L 33.5 8 L 28 11.5" fill="none" stroke="#a63d2a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/></svg></div>
+    <div class="arc-step hot">
+      <div class="arc-char">转</div>
+      <h4>在全量中找到奇点</h4>
+      <p>在宇宙中找到黑洞——<br>猎捕异常数据点<br><b>第02 / 09 / 12章</b></p>
+    </div>
+    <div class="arc-link"><svg viewBox="0 0 38 18" aria-hidden="true"><path d="M2 11 C 11 3, 23 16, 32 8" fill="none" stroke="#a63d2a" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/><path d="M28.5 4.5 L 33.5 8 L 28 11.5" fill="none" stroke="#a63d2a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/></svg></div>
+    <div class="arc-step">
+      <div class="arc-char">合</div>
+      <h4>在绝望中看到希望</h4>
+      <p>从反常里长出项目，<br>长成愿景<br><b>第18章 · 愿景</b></p>
+    </div>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag must">必讲</span></div>
+    <ul>
+      <li><b>知识图谱（Knowledge Graph）</b>用实体与关系把知识组织成可计算的图；EduKG 与 Marble 是它在教育领域的两个样本。<i>→ 本章路标 01 / 02 可现场打开</i></li>
+      <li><b>前置依赖与最短路径</b>把"先学什么、后学什么"建成有向图，学习路径规划就变成图上的寻路问题。<i>→ 与第八章"点线面体"同构</i></li>
+      <li><b>语义嵌入（Embedding）聚类</b>把论文变成向量，方向相近者自动成团——The Knowledge Cosmos 与 Connected Papers 的底层技术。<i>→ 索引：词向量 / 语义检索入门</i></li>
+      <li><b>引用网络分析</b>Paperscape 的圆点大小 = 被引次数，文献计量学的经典度量。<i>→ 与第十二章"信息量 = 意外度"互补</i></li>
+    </ul>
+  </aside>
+
+  <div class="breath reveal">一</div>
+</section>
+
+<!-- ============================================================
+     第二章 · 引子：那个异常的数据点
+     ============================================================ -->
+<section id="ch2" class="chapter" data-nav="02">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第二章 · 引子<span class="arc-tag"><b>转</b>全量中的奇点</span></div>
+    <h2>那个<span class="accent">异常</span>的数据点</h2>
+    <p class="ch-sub">调研不是写报告，是在海量常态数据中猎捕"反常"</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      先讲一个故事。我们曾把锦州翻了个底朝天——爬了锦州所有区县的报告，又爬了周边四座城市的报告。几十万字材料铺开，最后真正值钱的，只有几个数字。
+    </p>
+
+    <div class="figrow">
+      <div class="fig reveal" data-delay="1">
+        <b>异常点 ①</b>
+        <span>锦州的风味食品有特色——在一份份雷同的产业报告里，它突兀地跳了出来。</span>
+      </div>
+      <div class="fig reveal" data-delay="2">
+        <b>异常点 ②</b>
+        <span>锦州的大学生数量在增长——与同类城市的常态曲线背道而驰。</span>
+      </div>
+    </div>
+
+    <p class="reveal">
+      这两个异常点，直接指向一个判断：<strong>食品加工企业应该怎么样</strong>。不是"可以做什么"的泛泛之谈，而是从反常数据里长出来的、有落点的判断。
+    </p>
+
+    <p class="reveal">
+      这就是本次分享的全部出发点。绝大多数时间里，我们面对的是<strong>常态数据</strong>：正确、完整、体面，也毫无信息量。真正的功夫，是在这片常态的海洋里，辨认出那个不合群的数据点——然后追问它、验证它、把它变成一个项目。
+    </p>
+
+    <blockquote class="pull reveal">
+      调研不是写报告。<br>
+      调研是在海量常态数据中，<span class="accent">猎捕"反常"</span>。
+    </blockquote>
+
+    <p class="reveal">
+      接下来的内容，就是这套"猎捕"手法的完整拆解：先抬头看知识的地图（知识宇宙），再看它从哪里来（五个职业）、在哪片泥里长成（义乌三地考古），按什么坐标系展开（六维框架），用什么流水线执行（三级调研），以什么结构成文（四线研究法），思维如何从点、线、面一路升到体（点线面体），靠什么引擎发现亮点（溯因推理），以及如何取数、如何提问、如何用穷尽思维知道"查完了"，如何守住数据纪律。
+    </p>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag must">必讲</span></div>
+    <ul>
+      <li><b>异常值（离群点）</b>与常态分布显著偏离的观测点；统计学里它可能是错误，调研里它往往是线索。<i>→ 索引：统计学基础概念</i></li>
+      <li><b>常态数据</b>符合预期分布、不含决策增量的信息——正确但无用。<i>→ 与第十二章"信息量 = 意外度"呼应</i></li>
+    </ul>
+  </aside>
+
+  <div class="breath reveal">二</div>
+</section>
+<!-- ============================================================
+     第三章 · 五个职业，五把刀
+     ============================================================ -->
+<section id="ch3" class="chapter wide" data-nav="03">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第三章 · 来历<span class="arc-tag"><b>承</b>方法论来历</span></div>
+    <h2>五个职业，<span class="accent">五把刀</span></h2>
+    <p class="ch-sub">这套方法论不是想出来的，是一段一段职业淬炼出来的</p>
+  </header>
+
+  <div class="timeline">
+
+    <div class="tl-item reveal">
+      <div class="tl-card">
+        <div class="tl-era">第一把刀</div>
+        <h3>财经记者</h3>
+        <span class="tl-skill">访谈调研</span>
+        <p>让人开口，问出纸面上没有的东西。真正的信息不在通稿里，在被访者犹豫的那三秒钟里。</p>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-card">
+        <div class="tl-era">第二把刀</div>
+        <h3>券商</h3>
+        <span class="tl-skill">行业研究</span>
+        <p>产业链拆解、规模测算、对标分析。把任何一个行业拆成一张结构图，再估出每一块的大小。</p>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-card">
+        <div class="tl-era">第三把刀</div>
+        <h3>互联网大厂</h3>
+        <span class="tl-skill">竞对研究</span>
+        <p>结构化地盯住对手——从产品到组织，对手每一次改版、每一次组织架构调整，都是情报。</p>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-card">
+        <div class="tl-era">第四把刀</div>
+        <h3>情报公司</h3>
+        <span class="tl-skill">OSINT 开源情报</span>
+        <p>卫星坐标、招投标公告、裁判文书、工商数据——一切公开源皆是情报。秘密不在墙内，在没人拼起来的碎片里。</p>
+      </div>
+    </div>
+
+    <div class="tl-item hot reveal">
+      <div class="tl-card">
+        <div class="tl-era">第五把刀</div>
+        <h3>律所</h3>
+        <span class="tl-skill">尽职调查</span>
+        <p>穿透式核查：股权、债务、诉讼，一个数字对不上就要追到底。不相信任何一层表象，只相信穿透后的结构。</p>
+      </div>
+    </div>
+
+    <div class="tl-item tl-merge reveal">
+      <div class="tl-merge-card">
+        <div class="tl-era" style="text-align:center;">汇合点</div>
+        <h3>政府<span class="accent">投资平台</span></h3>
+        <span class="tl-skill">五把刀，合成一套打法</span>
+        <p style="text-align:center;">
+          对每一个区县、每一个地级市做深度立体调查——<br>
+          直到能从中<strong>谋划出一个项目</strong>。
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag must">必讲</span></div>
+    <ul>
+      <li><b>OSINT（开源情报）</b>从公开来源（公告、文书、卫星图、工商数据）系统化采集并拼接情报的学科。<i>→ 索引：情报学基础</i></li>
+      <li><b>尽职调查（Due Diligence）</b>交易前对标的做穿透式核查的律所/投行标准动作。<i>→ 见第十六章案例四</i></li>
+      <li><b>产业链拆解</b>把一个行业按上中下游拆成结构图的券商行研基本功。<i>→ 见第六章三级产业链调研</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第四章 · 方法论的考古：义乌三地
+     ============================================================ -->
+<section id="ch4" class="chapter" data-nav="04">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第四章 · 方法论的考古</div>
+    <h2>框架不是从书里来的，<br>是从<span class="accent">泥里</span>长出来的</h2>
+    <p class="ch-sub">义乌三地：北苑街道 → 后宅街道 → 义亭镇农贸市场</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      在讲框架之前，先做一次考古。很多人以为"六维框架"是坐下来设计出来的——不是。它是<strong>在义乌连打三仗</strong>之后，清点弹药时才被发现早已成形的。回头看，每一仗都在逼框架长出新的一维。
+    </p>
+  </div>
+
+  <!-- 手绘感三地路线 SVG -->
+  <div class="dim-diagram reveal" role="img" aria-label="义乌三地路线图：北苑街道到后宅街道到义亭镇农贸市场，框架逐级升级">
+    <svg viewBox="0 0 640 300">
+      <g filter="url(#rough)" fill="none" stroke-linecap="round">
+        <!-- 路线 -->
+        <path d="M110 200 C 220 150, 300 170, 330 150 C 370 124, 430 130, 530 96"
+              stroke="#8f7f63" stroke-width="1.8" stroke-dasharray="8 6"/>
+        <!-- 刻度环 -->
+        <circle cx="110" cy="200" r="34" stroke="#a63d2a" stroke-width="1.6"/>
+        <circle cx="110" cy="200" r="41" stroke="#b3a488" stroke-width="1" stroke-dasharray="3 6" opacity="0.7"/>
+        <circle cx="330" cy="150" r="34" stroke="#a63d2a" stroke-width="1.6"/>
+        <circle cx="330" cy="150" r="41" stroke="#b3a488" stroke-width="1" stroke-dasharray="3 6" opacity="0.7"/>
+        <circle cx="530" cy="96"  r="34" stroke="#a63d2a" stroke-width="1.6"/>
+        <circle cx="530" cy="96"  r="41" stroke="#b3a488" stroke-width="1" stroke-dasharray="3 6" opacity="0.7"/>
+      </g>
+      <g font-family="'Noto Serif SC','Songti SC',serif" text-anchor="middle">
+        <text x="110" y="196" font-size="16" font-weight="700" fill="#1a1a1a">北苑</text>
+        <text x="110" y="214" font-size="12" fill="#8a8175">街道</text>
+        <text x="330" y="146" font-size="16" font-weight="700" fill="#1a1a1a">后宅</text>
+        <text x="330" y="164" font-size="12" fill="#8a8175">街道</text>
+        <text x="530" y="92"  font-size="16" font-weight="700" fill="#1a1a1a">义亭镇</text>
+        <text x="530" y="110" font-size="12" fill="#8a8175">农贸市场</text>
+        <text x="110" y="266" font-size="12.5" fill="#a63d2a" font-weight="600">初探 · 一维说不清</text>
+        <text x="330" y="216" font-size="12.5" fill="#a63d2a" font-weight="600">成型 · 六维报告群</text>
+        <text x="530" y="162" font-size="12.5" fill="#a63d2a" font-weight="600">验证 · 下沉到乡镇</text>
+      </g>
+    </svg>
+  </div>
+
+  <h3 class="h-block reveal"><span class="battle">第一仗<i>北苑街道 · 初探</i></span><br>发现：单一维度说不清一个街道</h3>
+  <div class="prose">
+    <p class="reveal">
+      第一仗在北苑街道。一开始的直觉是抓住一个最强维度打穿——比如只讲人口，或者只讲企业。写出来就发现不对：<strong>任何单一维度都说不清一个街道</strong>。人口在流入，但流入的人去了哪些企业？企业密集，但为什么偏偏密集在这个路口而不是那条街？问题与问题之间互相咬尾，单一维度给出的每个答案都在引出另一个维度的问题。
+    </p>
+    <p class="reveal">
+      这一仗的战利品不是一份报告，是一个教训：<strong>维度少了，故事就讲不圆</strong>。"五维分析法"的雏形——把对象按几个正交的侧面同时摊开——就是在北苑被迫想出来的。
+    </p>
+  </div>
+
+  <h3 class="h-block reveal"><span class="battle">第二仗<i>后宅街道 · 系统成型</i></span><br>六维报告群：五份深度报告 + 一份建议书</h3>
+  <div class="prose">
+    <p class="reveal">
+      第二仗在后宅街道，框架第一次以完整形态出手：<strong>人口、地理、企业、流量、历史</strong>五份深度报告各成一卷，最后以一份<strong>市场调研建议书</strong>收口——五维摆事实，建议书出判断。
+    </p>
+    <p class="reveal">
+      这一仗还练出了一个关键动作：<strong>规上企业名单的多源交叉印证</strong>。同一份名单，用不同来源互相对撞——对不上的逐条追。名单不再是抄来的表格，而是被交叉验证过的情报资产。到后来回头看，"投资"维度的材料已经在各卷里反复出现，只是还没单独立卷——补上它，五维就升级成了六维。
+    </p>
+    <p class="reveal">
+      后宅报告群的直接产出是<strong>洞见驱动项目谋划</strong>：不是"情况汇总"，而是从六维交叉处长出来的项目点子。这一仗的完整战果，见第十六章案例五。
+    </p>
+  </div>
+
+  <h3 class="h-block reveal"><span class="battle">第三仗<i>义亭镇农贸市场 · 微观验证</i></span><br>框架在小尺度依然成立</h3>
+  <div class="prose">
+    <p class="reveal">
+      第三仗刻意把尺度压到最小：下沉到<strong>义亭镇的乡镇级农贸市场</strong>。一个乡镇市场，人口以摊贩和赶集人计，地理以摊位和动线计，历史以几代人的赶集记忆计——六维在这么小的尺度上<strong>依然一维不缺</strong>，每一维都取得到数、问得出问题。
+    </p>
+    <p class="reveal">
+      这一仗验证的是框架的<strong>尺度不变性</strong>：从街道到乡镇市场，框架不塌。一个框架只有在比它诞生的战场更小的地方依然成立，才配叫框架。
+    </p>
+  </div>
+
+  <blockquote class="pull reveal">
+    方法论不是设计出来的，<br>
+    是<span class="accent">打完三仗以后清点出来的弹药</span>。
+    <small>——先有其战，后有其法；先有手感，后有坐标系</small>
+  </blockquote>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag must">必讲</span></div>
+    <ul>
+      <li><b>规上企业</b>"规模以上"企业的简称，指年主营业务收入达到国家统计口径门槛、纳入联网直报的企业；各地名单口径以统计部门公布为准。<i>→ 索引：国家统计局统计制度</i></li>
+      <li><b>义乌</b>浙江县级市，全球小商品集散中心；下辖北苑、后宅等街道与义亭等镇。<i>→ 索引：民政部行政区划</i></li>
+      <li><b>尺度不变性</b>同一分析结构在不同空间尺度上都成立，是框架有效性的强检验。<i>→ 与第八章"点线面体"呼应</i></li>
+    </ul>
+  </aside>
+</section>
+<!-- ============================================================
+     第五章 · 六维调研框架
+     ============================================================ -->
+<section id="ch5" class="chapter wide" data-nav="05">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第五章 · 坐标系<span class="arc-tag"><b>承</b>立体坐标系</span></div>
+    <h2>六维调研框架</h2>
+    <p class="ch-sub">拆解对象的坐标系——任何对象先按六维摆平，再谈深入</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      这就是第四章那三仗清点出来的坐标系——它<strong>从义乌三地的泥里长出来</strong>，现在交给团队，当作任何调研的第一动作。
+    </p>
+  </div>
+
+  <!-- 手绘感六维 SVG -->
+  <div class="dim-diagram reveal" role="img" aria-label="六维调研框架图：人口、地理、企业、流量、历史、投资六个维度围绕调研对象">
+    <svg viewBox="0 0 640 560">
+      <defs>
+        <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/>
+        </filter>
+      </defs>
+      <g filter="url(#rough)" fill="none" stroke-linecap="round">
+        <!-- 外六角（双层，手绘感） -->
+        <path d="M320 60 L493 160 L493 360 L320 460 L147 360 L147 160 Z"
+              stroke="#8f7f63" stroke-width="1.6" stroke-dasharray="7 5" opacity="0.75"/>
+        <path d="M320 74 L480 166 L480 354 L320 446 L160 354 L160 166 Z"
+              stroke="#b3a488" stroke-width="1" stroke-dasharray="3 6" opacity="0.6"/>
+        <!-- 六条辐条 -->
+        <g stroke="#8f7f63" stroke-width="1.2" opacity="0.8">
+          <path d="M320 262 L320 66"/>
+          <path d="M322 264 L488 162"/>
+          <path d="M322 266 L488 358"/>
+          <path d="M320 268 L320 454"/>
+          <path d="M318 266 L152 358"/>
+          <path d="M318 264 L152 162"/>
+        </g>
+      </g>
+      <!-- 顶点：维度 -->
+      <g font-family="'Noto Serif SC','Songti SC',serif" font-weight="700" fill="#1a1a1a">
+        <g text-anchor="middle">
+          <circle cx="320" cy="60"  r="30" fill="#faf7f2" stroke="#a63d2a" stroke-width="1.6"/>
+          <text x="320" y="68"  font-size="22">人口</text>
+          <circle cx="493" cy="160" r="30" fill="#faf7f2" stroke="#a63d2a" stroke-width="1.6"/>
+          <text x="493" y="168" font-size="22">地理</text>
+          <circle cx="493" cy="360" r="30" fill="#faf7f2" stroke="#a63d2a" stroke-width="1.6"/>
+          <text x="493" y="368" font-size="22">企业</text>
+          <circle cx="320" cy="460" r="30" fill="#faf7f2" stroke="#a63d2a" stroke-width="1.6"/>
+          <text x="320" y="468" font-size="22">流量</text>
+          <circle cx="147" cy="360" r="30" fill="#faf7f2" stroke="#a63d2a" stroke-width="1.6"/>
+          <text x="147" y="368" font-size="22">历史</text>
+          <circle cx="147" cy="160" r="30" fill="#faf7f2" stroke="#a63d2a" stroke-width="1.6"/>
+          <text x="147" y="168" font-size="22">投资</text>
+        </g>
+      </g>
+      <!-- 中心：调研对象 -->
+      <circle cx="320" cy="262" r="46" fill="#a63d2a"/>
+      <circle cx="320" cy="262" r="52" fill="none" stroke="#a63d2a" stroke-width="1" stroke-dasharray="2 5" opacity="0.6"/>
+      <text x="320" y="256" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif"
+            font-size="19" font-weight="700" fill="#fdf8f0">调研</text>
+      <text x="320" y="280" text-anchor="middle" font-family="'Noto Serif SC','Songti SC',serif"
+            font-size="19" font-weight="700" fill="#fdf8f0">对象</text>
+    </svg>
+  </div>
+
+  <div class="dim-grid">
+    <article class="dim-card reveal" tabindex="0">
+      <span class="dim-toggle">＋</span>
+      <div class="dim-idx">维度 壹</div>
+      <h3>人口</h3>
+      <p class="dim-brief">一个地方最底层的底盘</p>
+      <div class="dim-detail">
+        <ul>
+          <li>人口基本面：总量、增减趋势</li>
+          <li>结构：年龄、城乡、受教育程度</li>
+          <li>从业人口与客流：谁在干活，谁在流动</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="dim-card reveal" data-delay="1" tabindex="0">
+      <span class="dim-toggle">＋</span>
+      <div class="dim-idx">维度 贰</div>
+      <h3>地理</h3>
+      <p class="dim-brief">空间决定成本与半径</p>
+      <div class="dim-detail">
+        <ul>
+          <li>空间区位与交通条件</li>
+          <li>气候环境</li>
+          <li>产业在地理上的分布</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="dim-card reveal" data-delay="2" tabindex="0">
+      <span class="dim-toggle">＋</span>
+      <div class="dim-idx">维度 叁</div>
+      <h3>企业</h3>
+      <p class="dim-brief">市场主体的真实构成</p>
+      <div class="dim-detail">
+        <ul>
+          <li>市场主体结构</li>
+          <li>竞争格局</li>
+          <li>产品多样性</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="dim-card reveal" data-delay="1" tabindex="0">
+      <span class="dim-toggle">＋</span>
+      <div class="dim-idx">维度 肆</div>
+      <h3>流量</h3>
+      <p class="dim-brief">交易与辐射的能级</p>
+      <div class="dim-detail">
+        <ul>
+          <li>交易规模</li>
+          <li>辐射力</li>
+          <li>能级与知名度</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="dim-card reveal" data-delay="2" tabindex="0">
+      <span class="dim-toggle">＋</span>
+      <div class="dim-idx">维度 伍</div>
+      <h3>历史</h3>
+      <p class="dim-brief">时间是产业的裁判</p>
+      <div class="dim-detail">
+        <ul>
+          <li>产业存续时长</li>
+          <li>关键政策节点</li>
+          <li>所处发展阶段</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="dim-card reveal" data-delay="3" tabindex="0">
+      <span class="dim-toggle">＋</span>
+      <div class="dim-idx">维度 陆</div>
+      <h3>投资</h3>
+      <p class="dim-brief">钱的流向即真实意图</p>
+      <div class="dim-detail">
+        <ul>
+          <li>政府政策</li>
+          <li>社会资本</li>
+          <li>产业经济数据</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <p class="dim-hint reveal">点击卡片 · 展开各维度的具体观察项</p>
+
+  <div class="note reveal">
+    <b>注：</b>六维不是教科书框架，而是多年"调研习惯"固化下来的成果——在义乌北苑、后宅、义亭三仗中被打磨成型（见第四章）。拿到任何对象——一个区县、一个产业、一家企业——先按六个维度摆平、建立坐标系，再谈深入。顺序可以变，维度不能少。
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>维度（Dimension）</b>观察对象时相互独立、不可互相替代的一个侧面；六维即六个正交侧面。<i>→ 索引：分析框架基础</i></li>
+      <li><b>正交性</b>各维度信息互不重复，合起来覆盖对象全貌。<i>→ 与第十三章 MECE 讨论呼应</i></li>
+      <li><b>坐标系隐喻</b>先定位再深入，避免"一上来就钻进细节里迷路"。<i>→ 见第八章点线面体</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第六章 · 三级产业链调研
+     ============================================================ -->
+<section id="ch6" class="chapter wide" data-nav="06">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第六章 · 搜集流水线<span class="arc-tag"><b>承</b>全方位搜集</span></div>
+    <h2>三级产业链调研</h2>
+    <p class="ch-sub">全国 → 省 → 市：一条产业链按三级展开，层层递进</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      一条产业链，按三级展开：<strong>全国格局 → 全省集群 → 本市企业</strong>。每一级都不是泛泛而谈，每一级都附 URL 溯源——每一个论断都能点回原始出处。
+    </p>
+  </div>
+
+  <div class="flow reveal">
+    <div class="flow-step">
+      <div class="fs-tag">第一级 · 全国</div>
+      <h4>全国格局</h4>
+      <p>产业链全貌、头部集群、规模与分工。先知道这条链在中国版图上长什么样。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">第二级 · 全省</div>
+      <h4>全省集群</h4>
+      <p>省内的产业带、集群分布、关键环节落位。看清本省在这条链上的位置。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step hot">
+      <div class="fs-tag">第三级 · 本市</div>
+      <h4>本市企业</h4>
+      <p>落到具体企业名单：谁在做、做什么、做到哪一步。调研的终点是名单，不是形容词。</p>
+    </div>
+  </div>
+
+  <h3 class="h-block reveal">深度档位制：50 / 100 / 200 URL</h3>
+  <div class="prose">
+    <p class="reveal">
+      调研深度不该凭感觉，应该<strong>档位化</strong>。以溯源 URL 数量为刻度，三档控制调研深度：
+    </p>
+  </div>
+  <div class="tier-row">
+    <div class="tier reveal" data-delay="1">
+      <b>50</b>
+      <i>第一档 · URL</i>
+    </div>
+    <div class="tier reveal" data-delay="2">
+      <b>100</b>
+      <i>第二档 · URL</i>
+    </div>
+    <div class="tier reveal" data-delay="3">
+      <b>200</b>
+      <i>第三档 · URL</i>
+    </div>
+  </div>
+
+  <h3 class="h-block reveal">三级流水线</h3>
+  <div class="flow reveal">
+    <div class="flow-step">
+      <div class="fs-tag">一级 · 发现</div>
+      <h4>关键词搜索 + URL 发现</h4>
+      <p>用关键词把这条链上值得读的页面全部找出来。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">二级 · 抓取</div>
+      <h4>内容摘要</h4>
+      <p>逐个 URL 抓取正文，压缩成结构化摘要，保留出处。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">三级 · 融合</div>
+      <h4>报告生成</h4>
+      <p>把摘要按框架融合成报告——带溯源、分档深度、层层递进。</p>
+    </div>
+  </div>
+
+  <div class="note reveal">
+    <b>关键思想：</b>把方法论固化为 Skill 工具，机器跑流水线，<b>人只在关键环节决策</b>——
+  </div>
+  <div class="chip-row reveal">
+    <span class="chip">选 链</span>
+    <span class="chip">选 省</span>
+    <span class="chip">选 档</span>
+  </div>
+
+  <h3 class="h-block reveal">实战例：预制菜产业链调研</h3>
+  <div class="flow reveal">
+    <div class="flow-step">
+      <div class="fs-tag">全国</div>
+      <h4>全国预制菜格局</h4>
+      <p>产业全貌与分工版图。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">辽宁</div>
+      <h4>产业集群与中央厨房</h4>
+      <p>辽宁省的预制菜集群落位。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step hot">
+      <div class="fs-tag">锦州</div>
+      <h4>中央厨房与预制菜公司</h4>
+      <p>落到本市的企业名单。</p>
+    </div>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>产业链 / 产业集群</b>上中下游环环相扣的生产网络；集群指同链企业在地理上的扎堆。<i>→ 索引：产业经济学基础</i></li>
+      <li><b>URL 溯源</b>每个论断保留原始网页出处，可随时回查——可复现性的工程实现。<i>→ 见第十四章数据纪律</i></li>
+      <li><b>Skill 工具化</b>把方法步骤固化成可被机器反复执行的流程。<i>→ 见第十八章工具化与愿景</i></li>
+    </ul>
+  </aside>
+</section>
+<!-- ============================================================
+     第七章 · 四线研究法
+     ============================================================ -->
+<section id="ch7" class="chapter wide" data-nav="07">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第七章 · 元结构</div>
+    <h2>四线研究法</h2>
+    <p class="ch-sub">报告的元结构：纵线追时间，横线定坐标，斜线审禀赋，交叉出判断</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      报告不是资料的堆叠，是线的编织。v1 里它叫"横纵分析法"，两条线；实战中发现还缺一条——<strong>审视本地禀赋的斜线</strong>。补全之后是四种线：<strong>纵线、横线、斜线、交叉线</strong>。每一篇报告拆到骨头里，都是这四线的编织物。
+    </p>
+  </div>
+
+  <!-- 手绘感四线 SVG -->
+  <div class="dim-diagram reveal" role="img" aria-label="四线研究法示意图：纵线为时间纵深，横线为世界坐标，斜线为本地禀赋，三线相交于交叉判断">
+    <svg viewBox="0 0 640 430">
+      <g filter="url(#rough)" fill="none" stroke-linecap="round">
+        <!-- 纵线 -->
+        <path d="M210 396 L210 40" stroke="#a63d2a" stroke-width="2.2"/>
+        <path d="M210 46 L202 62 M210 46 L218 62" stroke="#a63d2a" stroke-width="2.2"/>
+        <!-- 横线 -->
+        <path d="M44 300 L600 300" stroke="#454038" stroke-width="2"/>
+        <path d="M594 300 L578 293 M594 300 L578 307" stroke="#454038" stroke-width="2"/>
+        <!-- 斜线 -->
+        <path d="M84 386 L556 88" stroke="#8f7f63" stroke-width="1.9" stroke-dasharray="10 6"/>
+        <path d="M550 92 L534 102 M550 92 L540 78" stroke="#8f7f63" stroke-width="1.9"/>
+        <!-- 纵线时间节点 -->
+        <g stroke="#a63d2a" stroke-width="1.6">
+          <path d="M202 120 L218 120"/>
+          <path d="M202 200 L218 200"/>
+          <path d="M202 278 L218 278"/>
+        </g>
+        <!-- 横线刻度 -->
+        <g stroke="#454038" stroke-width="1.4">
+          <path d="M120 292 L120 308"/>
+          <path d="M330 292 L330 308"/>
+          <path d="M420 292 L420 308"/>
+          <path d="M510 292 L510 308"/>
+        </g>
+      </g>
+      <!-- 交叉点 -->
+      <circle cx="210" cy="300" r="7" fill="#a63d2a"/>
+      <circle cx="210" cy="300" r="14" fill="none" stroke="#a63d2a" stroke-width="1" stroke-dasharray="2 4" opacity="0.7"/>
+      <!-- 标注 -->
+      <g font-family="'Noto Serif SC','Songti SC',serif">
+        <text x="236" y="70"  font-size="16" font-weight="700" fill="#a63d2a">纵线 · 行业演变</text>
+        <text x="236" y="126" font-size="13.5" fill="#454038">Clark</text>
+        <text x="236" y="206" font-size="13.5" fill="#454038">Baumol</text>
+        <text x="236" y="284" font-size="13.5" fill="#454038">AI 时代</text>
+        <text x="470" y="282" font-size="16" font-weight="700" fill="#454038" text-anchor="end">横线 · 全国标杆</text>
+        <text x="120" y="330" font-size="12.5" fill="#8a8175" text-anchor="middle">五国</text>
+        <text x="330" y="330" font-size="12.5" fill="#8a8175" text-anchor="middle">对比</text>
+        <text x="420" y="330" font-size="12.5" fill="#8a8175" text-anchor="middle">锚定</text>
+        <text x="510" y="330" font-size="12.5" fill="#8a8175" text-anchor="middle">坐标</text>
+        <text x="560" y="74" font-size="16" font-weight="700" fill="#8f7f63" text-anchor="end">斜线 · 本地禀赋</text>
+        <text x="236" y="322" font-size="14.5" font-weight="700" fill="#a63d2a">交叉判断</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="quad">
+    <article class="tri-card reveal">
+      <h3>纵线</h3>
+      <div class="tri-en">DIACHRONIC</div>
+      <div class="tri-dir">行业演变 · 历时纵深</div>
+      <p>
+        对一个关键词做历时叙事：这个行业<b>从哪里来、经过哪些拐点、现在站在哪一段</b>。
+        例：服务业就业理论——从 Clark 到 Baumol，一路追到 AI 时代。
+        一个概念在时间里怎么演化，决定了它今天站在哪。
+      </p>
+    </article>
+    <article class="tri-card reveal" data-delay="1">
+      <h3>横线</h3>
+      <div class="tri-en">SYNCHRONIC</div>
+      <div class="tri-dir">全国标杆 · 世界坐标</div>
+      <p>
+        对一个关键词做共时对比：<b>同一时刻，全国标杆与世界水平做到哪一步，我们在哪一格</b>。
+        例：生产性服务业五国对比。横线负责消除"自以为不错"，把本地锚定在世界坐标上。
+      </p>
+    </article>
+    <article class="tri-card reveal" data-delay="2">
+      <h3>斜线</h3>
+      <div class="tri-en">ENDOWMENT</div>
+      <div class="tri-dir">禀赋审视 · 本地独特性</div>
+      <p>
+        v2 新增的第三条线：<b>审视本地资源条件与独特性</b>——区位、物产、人、历史留给我们的牌。
+        斜线回答的不是"别人怎样"，而是"我们手里到底有什么"，让纵横两条线的结论能落到这块地上。
+      </p>
+    </article>
+    <article class="tri-card hot reveal" data-delay="3">
+      <span class="tri-badge">真正产出</span>
+      <h3>交叉线</h3>
+      <div class="tri-en">INTERSECTION</div>
+      <div class="tri-dir">四线相交 · 交织判断</div>
+      <p>
+        纵、横、斜三线相遇产生的交织判断，才是"研究面"的真正产出。例：<b>中美差距不在服务业，
+        而在与制造业耦合的知识服务层</b>——这句话任何一条单线都给不出，只有交叉处才有。
+      </p>
+    </article>
+  </div>
+
+  <h3 class="h-block reveal">元纪律：写完报告要审计</h3>
+  <div class="prose">
+    <p class="reveal">
+      数一遍：这篇报告里<strong>纵线有几条、横线有几条、斜线有几条、交叉线有几条</strong>。
+      缺线的报告是半成品——只有纵线会变成编年史，只有横线会变成排行榜，只有斜线会变成自卖自夸。
+      然后去重、重织——把线合并成浑然一体的一篇，而不是一捆平行放置的电线。
+    </p>
+  </div>
+
+  <h3 class="h-block reveal">工具箱的关系</h3>
+  <div class="flow reveal">
+    <div class="flow-step">
+      <div class="fs-tag">拆对象</div>
+      <h4>六维框架</h4>
+      <p>把对象摆上坐标系。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">做搜集</div>
+      <h4>三级调研</h4>
+      <p>把材料流水线式收回来。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step hot">
+      <div class="fs-tag">织报告</div>
+      <h4>四线研究法</h4>
+      <p>把材料织成有交叉判断的报告。</p>
+    </div>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag opt">选讲</span></div>
+    <ul>
+      <li><b>历时 / 共时（Diachronic / Synchronic）</b>语言学借来的两个视角：沿时间轴追演变 vs 在同一时刻横切对比。<i>→ 索引：索绪尔结构语言学</i></li>
+      <li><b>Clark / Baumol</b>克拉克三次产业划分与鲍莫尔"成本病"，服务业就业研究的两个经典节点。<i>→ 索引：第十九章延伸阅读</i></li>
+      <li><b>禀赋（Endowment）</b>一个地区先天与历史积累的资源条件总和，是要素禀赋理论的本地化用法。<i>→ 索引：比较优势理论</i></li>
+    </ul>
+  </aside>
+</section>
+<!-- ============================================================
+     第八章 · 思维层级：点线面体
+     ============================================================ -->
+<section id="ch8" class="chapter wide" data-nav="08">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第八章 · 思维层级<span class="arc-tag"><b>承</b>立体之"体"</span></div>
+    <h2>点、线、面、<span class="accent">体</span></h2>
+    <p class="ch-sub">从一条线到一个世界模型——思维的四级台阶，"立体"二字的全部分量</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      为什么叫"立体调研"？这一章给出全篇的理论答案。思维有四层：<strong>线性思维是一条线，树形思维是一个平面，网状思维是多个平面的编织，立体思维是点线面体齐备</strong>。调研质量的差距，本质是思维层级的差距。
+    </p>
+  </div>
+
+  <!-- 手绘感四层递进 SVG -->
+  <div class="dim-diagram reveal" role="img" aria-label="思维层级递进图：线性思维一条线，树形思维一个平面，网状思维多个平面编织，立体思维合成立方体">
+    <svg viewBox="0 0 900 300">
+      <g filter="url(#rough)" fill="none" stroke-linecap="round">
+        <!-- 壹 · 线 -->
+        <path d="M40 200 L190 200" stroke="#a63d2a" stroke-width="2.2"/>
+        <circle cx="40"  cy="200" r="4" fill="#a63d2a" stroke="none"/>
+        <circle cx="115" cy="200" r="4" fill="#a63d2a" stroke="none"/>
+        <circle cx="190" cy="200" r="4" fill="#a63d2a" stroke="none"/>
+        <!-- 贰 · 面（树形导图） -->
+        <path d="M330 120 L330 240 M330 160 L270 220 M330 160 L390 220 M330 200 L285 250 M330 200 L375 250"
+              stroke="#8f7f63" stroke-width="1.6"/>
+        <circle cx="330" cy="120" r="5" fill="#a63d2a" stroke="none"/>
+        <circle cx="270" cy="220" r="3.5" fill="#454038" stroke="none"/>
+        <circle cx="390" cy="220" r="3.5" fill="#454038" stroke="none"/>
+        <circle cx="285" cy="250" r="3.5" fill="#454038" stroke="none"/>
+        <circle cx="375" cy="250" r="3.5" fill="#454038" stroke="none"/>
+        <circle cx="330" cy="160" r="3.5" fill="#454038" stroke="none"/>
+        <circle cx="330" cy="200" r="3.5" fill="#454038" stroke="none"/>
+        <!-- 叁 · 网（多平面 + 旁线） -->
+        <path d="M470 130 L600 110 L640 190 L510 210 Z" stroke="#8f7f63" stroke-width="1.4" stroke-dasharray="6 4"/>
+        <path d="M478 152 L608 132 L648 212 L518 232 Z" stroke="#b3a488" stroke-width="1.2" stroke-dasharray="3 5"/>
+        <circle cx="500" cy="150" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="560" cy="142" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="620" cy="180" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="540" cy="196" r="3.5" fill="#a63d2a" stroke="none"/>
+        <path d="M500 150 L560 142 M560 142 L620 180 M500 150 L540 196 M540 196 L620 180" stroke="#454038" stroke-width="1.2"/>
+        <path d="M500 150 L620 180 M560 142 L540 196" stroke="#a63d2a" stroke-width="1.6" stroke-dasharray="2 4"/>
+        <!-- 肆 · 体 -->
+        <path d="M740 130 L830 110 L870 150 L780 170 Z" stroke="#a63d2a" stroke-width="1.8"/>
+        <path d="M740 130 L740 210 L780 250 L780 170" stroke="#a63d2a" stroke-width="1.8"/>
+        <path d="M830 110 L830 190 L870 230 L870 150" stroke="#a63d2a" stroke-width="1.8"/>
+        <path d="M780 250 L870 230 M740 210 L830 190" stroke="#a63d2a" stroke-width="1.8"/>
+        <path d="M830 190 L780 170" stroke="#a63d2a" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/>
+        <circle cx="740" cy="130" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="830" cy="110" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="870" cy="150" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="780" cy="170" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="740" cy="210" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="830" cy="190" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="870" cy="230" r="3.5" fill="#a63d2a" stroke="none"/>
+        <circle cx="780" cy="250" r="3.5" fill="#a63d2a" stroke="none"/>
+      </g>
+      <g font-family="'Noto Serif SC','Songti SC',serif" text-anchor="middle">
+        <text x="115" y="278" font-size="15" font-weight="700" fill="#1a1a1a">壹 · 线性思维</text>
+        <text x="330" y="284" font-size="15" font-weight="700" fill="#1a1a1a">贰 · 树形思维</text>
+        <text x="558" y="268" font-size="15" font-weight="700" fill="#1a1a1a">叁 · 网状思维</text>
+        <text x="805" y="284" font-size="15" font-weight="700" fill="#a63d2a">肆 · 立体思维</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="quad">
+    <article class="tri-card reveal">
+      <h3>线性思维</h3>
+      <div class="tri-en">A LINE</div>
+      <div class="tri-dir">点连成线 · 一条因果</div>
+      <p>
+        因为 A 所以 B，因为 B 所以 C。<b>能讲故事，但只有一个方向</b>——
+        遇到多因多果的现实，线一拉长就断。
+      </p>
+    </article>
+    <article class="tri-card reveal" data-delay="1">
+      <h3>树形思维</h3>
+      <div class="tri-en">A PLANE</div>
+      <div class="tri-dir">思维导图 · 主线 + 支线</div>
+      <p>
+        一张思维导图：一条主线，若干支线，合起来铺满<b>一个平面</b>。
+        这是大多数"结构化思考"的终点——但只是第二层。
+      </p>
+    </article>
+    <article class="tri-card reveal" data-delay="2">
+      <h3>网状思维</h3>
+      <div class="tri-en">PLANES WOVEN</div>
+      <div class="tri-dir">多张导图叠加 · 有旁线</div>
+      <p>
+        多张思维导图叠在一起：有主线、有支线，<b>关键是有旁线</b>——
+        纵横经纬，多个平面编织成网。网开始有了"体"的雏形。
+      </p>
+    </article>
+    <article class="tri-card hot reveal" data-delay="3">
+      <span class="tri-badge">立体调研</span>
+      <h3>立体思维</h3>
+      <div class="tri-en">A SOLID</div>
+      <div class="tri-dir">六维六张导图 · 合成体</div>
+      <p>
+        六维 = 六张导图，维维之间有旁线相连，合起来是一个<b>体</b>。
+        点（数据点）、线（因果链）、面（单维结构）、体（多维模型）——齐备。
+      </p>
+    </article>
+  </div>
+
+  <h3 class="h-block reveal">关键对比：树形与网状的区别，就在"旁线"</h3>
+  <div class="prose">
+    <p class="reveal">
+      树形只有主线和支线——所有连接都服从层级，<strong>同一层级的两个分支之间没有路</strong>。
+      网状多了一样东西：<strong>旁线</strong>——维与维之间的横向连接。
+      人口维的一个发现，可以直接连着企业维的另一个发现，不必绕回根节点。
+    </p>
+    <p class="reveal">
+      旁线才是洞见的产地。第二章锦州的两个异常点之所以值钱，恰恰因为它们之间有一条旁线：
+      <strong>"风味食品有特色"（产业维）连着"大学生在增长"（人口维）</strong>——
+      两条支线一接通，"食品加工企业应该怎么样"的判断就浮出来了。树形结构里，这条线不存在。
+    </p>
+  </div>
+
+  <h3 class="h-block reveal">数据库同构：你每天都在用立体结构</h3>
+  <div class="prose">
+    <p class="reveal">
+      这个抽象层级，在每天用的工具里有精确的对应物：
+    </p>
+  </div>
+  <div class="flow reveal">
+    <div class="flow-step">
+      <div class="fs-tag">Word</div>
+      <h4>章节结构 = 横纵列</h4>
+      <p>章、节、小节——一棵目录树，对应数据库表的横纵列结构。线性与树形的容器。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">Excel</div>
+      <h4>一个 Sheet = 一个平面</h4>
+      <p>一张表是一个二维平面；多个 sheet 通过引用关联，组成的工作簿就是一个数据库的雏形。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step hot">
+      <div class="fs-tag">数据库</div>
+      <h4>多表关联 = 一个立体</h4>
+      <p>表与表靠主键外键互相连接——那就是旁线。立体调查落到工具上，就是数据库式调查。</p>
+    </div>
+  </div>
+
+  <h3 class="h-block reveal">Palantir 本体论：把世界建模成对象与连接</h3>
+  <div class="prose">
+    <p class="reveal">
+      这条路的工业级样板是 Palantir 的 <strong>Ontology（本体论）</strong>：
+      把现实世界的人、物、事件、关系，建模成<strong>对象（Object）与连接（Link）</strong>，
+      让组织里的每一份数据都挂到一个可查询的世界模型上。
+      顺着它想下去会得到一个不太温柔的猜想：<strong>数据库思维可能才是真正的立体思维</strong>——
+      纸上画出再多的维，不如把对象与关系建进一个能 JOIN 的结构里。
+    </p>
+    <p class="reveal">
+      关系型数据库（以 PostgreSQL 为代表）的三个特点，与调研建模一一同构：
+      <strong>关系</strong>——表与表的连接，就是维度间的旁线；
+      <strong>约束</strong>——主键、外键、非空，就是第十四章的数据纪律；
+      <strong>可连接查询</strong>——一条 SQL 把多张表临时织成一个面，就是第七章"四线相交出判断"的工程版。
+    </p>
+  </div>
+
+  <blockquote class="pull reveal">
+    所谓全方位立体调查，<br>
+    就是给调查对象建一个<span class="accent">可查询的世界模型</span>。
+    <small>——点线面体齐备，且每一维都能被追问</small>
+  </blockquote>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag must">必讲</span></div>
+    <ul>
+      <li><b>思维导图（树形结构）</b>以一个中心主题放射出层级分支的笔记结构，是"树"数据结构的可视化。<i>→ 索引：数据结构基础</i></li>
+      <li><b>旁线 / 横向连接</b>图论里跨分支的边；有旁线的图不再是一棵树，而是一张网（Graph）。<i>→ 索引：图论基础</i></li>
+      <li><b>Ontology（本体论）</b>源自哲学，指对存在者的系统化建模；Palantir 用它把企业数据组织成对象与连接。<i>→ 索引：Palantir 官方技术博客，见第十九章</i></li>
+      <li><b>PostgreSQL</b>开源关系型数据库，支持复杂关系、约束与连接查询。<i>→ 索引：PostgreSQL 官方文档，见第十九章</i></li>
+    </ul>
+  </aside>
+</section>
+<!-- ============================================================
+     第九章 · 溯因式推理
+     ============================================================ -->
+<section id="ch9" class="chapter wide" data-nav="09">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第九章 · 认知引擎<span class="arc-tag"><b>转</b>宇宙中的黑洞</span></div>
+    <h2>溯因式推理</h2>
+    <p class="ch-sub">找亮点的认知引擎——三种推理，只有它产生新知</p>
+  </header>
+
+  <div class="tri">
+    <article class="tri-card reveal">
+      <h3>归纳</h3>
+      <div class="tri-en">INDUCTION</div>
+      <div class="tri-dir">从个案 → 到规律</div>
+      <p>
+        看见了一百次日出，推断明天太阳照常升起。<br><br>
+        <b>它给的是概率</b>——大概率对，但没有新东西，只是既有经验的延长线。
+      </p>
+    </article>
+    <article class="tri-card reveal" data-delay="1">
+      <h3>演绎</h3>
+      <div class="tri-en">DEDUCTION</div>
+      <div class="tri-dir">从规律 → 到个案</div>
+      <p>
+        人都会死，苏格拉底是人，所以苏格拉底会死。<br><br>
+        <b>它给的是确定</b>——结论早已含在前提里，同样没有新东西。
+      </p>
+    </article>
+    <article class="tri-card hot reveal" data-delay="2">
+      <span class="tri-badge">调研主力</span>
+      <h3>溯因</h3>
+      <div class="tri-en">ABDUCTION</div>
+      <div class="tri-dir">从异常 → 到最佳解释</div>
+      <p>
+        草地湿了 → 最可能是昨夜下雨了 → 去验证：查气象记录。<br><br>
+        <b>它给的是假设</b>——三种推理中，唯一产生"新知"的一种。
+      </p>
+    </article>
+  </div>
+
+  <blockquote class="pull reveal">
+    归纳给概率，演绎给确定，<span class="accent">溯因给假设</span>。<br>
+    <small>——调研要的不是复读已知，而是提出可验证的新解释</small>
+  </blockquote>
+
+  <h3 class="h-block reveal">调研中的用法：异常数据点不是噪音，是线索</h3>
+  <div class="prose">
+    <p class="reveal">
+      回到第二章的锦州。这条溯因链是这样跑的：
+    </p>
+  </div>
+
+  <div class="abd-chain reveal">
+    <div class="abd-node">
+      <b>① 异常</b>
+      <span>锦州的大学生数量在增长——与同类城市常态背离</span>
+    </div>
+    <div class="abd-node">
+      <b>② 最佳解释</b>
+      <span>城市对年轻人口的吸引力正在回升</span>
+    </div>
+    <div class="abd-node">
+      <b>③ 去验证</b>
+      <span>查就业结构、查消费数据，看解释是否站得住</span>
+    </div>
+    <div class="abd-node">
+      <b>④ 指向机会</b>
+      <span>解释成立 → 指向具体的项目机会</span>
+    </div>
+  </div>
+
+  <div class="note reveal">
+    <b>注意：</b>溯因的结论永远是"最佳解释"而非"唯一真相"。所以它天生带着下一步——验证。不验证的溯因是脑补，验证过的溯因才是情报。
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag opt">选讲</span></div>
+    <ul>
+      <li><b>溯因推理（Abduction）</b>皮尔士提出的第三种推理：从意外事实反推最佳解释，也叫"假设法"。<i>→ 索引：皮尔士文集，见第十九章</i></li>
+      <li><b>归纳 / 演绎</b>亚里士多德以来逻辑学的两大基本推理形式。<i>→ 索引：逻辑学入门</i></li>
+      <li><b>可证伪性</b>假设必须能被检验——这是溯因与脑补的分界线。<i>→ 索引：波普尔科学哲学</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第十章 · 取数：问题域与解答域
+     ============================================================ -->
+<section id="ch10" class="chapter" data-nav="10">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十章 · 取数</div>
+    <h2>问题域与解答域</h2>
+    <p class="ch-sub">取数的核心动作不是"找"，是"匹配"</p>
+  </header>
+
+  <div class="domains reveal">
+    <div class="domain q">
+      <h3>问题域</h3>
+      <div class="dom-en">WHAT TO ASK</div>
+      <p>
+        你到底要问什么？把模糊意图变成<strong>可回答的问题</strong>。
+        "了解一下冷库"不是问句；"冷库都在哪、多大、谁运营的"才是。
+      </p>
+    </div>
+    <div class="domain-match" aria-hidden="true">
+      <span class="m-line"></span>
+      <b>匹 配</b>
+      <span class="m-line"></span>
+    </div>
+    <div class="domain a">
+      <h3>解答域</h3>
+      <div class="dom-en">WHERE TO ANSWER</div>
+      <p>
+        什么数据、什么渠道，能回答这个问题？
+        公开源远比你以为的富有——前提是知道去哪一路找。
+      </p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p class="reveal">
+      问题域里拆出的<strong>每个子问题，都必须在解答域里找到对应数据源</strong>。
+      匹配不上，只有三条路：换问法、换数据源，或者——承认这是情报空白，如实留白。
+    </p>
+  </div>
+
+  <h3 class="h-block reveal">实战例：辽西冷库调研</h3>
+  <div class="prose">
+    <p class="reveal">
+      问题域只有一句话：<strong>"冷库都在哪、多大、谁运营的。"</strong>
+      解答域铺开是五路公开源，并行采集、交叉印证：
+    </p>
+  </div>
+  <div class="src-row reveal">
+    <span class="src"><b>壹</b>土地挂牌</span>
+    <span class="src"><b>贰</b>项目备案</span>
+    <span class="src"><b>叁</b>环评公示</span>
+    <span class="src"><b>肆</b>招标公告</span>
+    <span class="src"><b>伍</b>企业官网</span>
+  </div>
+  <div class="prose">
+    <p class="reveal">
+      五路公开源拼起来，就是一张没有花一分钱买数据的冷库地图——这套打法的完整战果，见第十六章案例二。
+    </p>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>问题域 / 解答域</b>借自软件工程的概念对：需求空间与解空间，调研里对应"问什么"与"去哪答"。<i>→ 索引：软件工程基础</i></li>
+      <li><b>政府公开源五路</b>土地挂牌、项目备案、环评公示、招标公告、企业官网均为法定公开渠道。<i>→ 索引：政府信息公开条例</i></li>
+      <li><b>情报留白</b>匹配不上就如实标注空白——空白本身也是情报。<i>→ 见第十四章铁律三</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第十一章 · 问题链与问题爆炸扩散数据库
+     ============================================================ -->
+<section id="ch11" class="chapter" data-nav="11">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十一章 · 提问的工程化</div>
+    <h2>问题链与问题爆炸扩散数据库</h2>
+    <p class="ch-sub">一个大问题，爆炸成一棵每片叶子都可回答的问题树</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      调研中最贵的资产不是问题本身，而是<strong>问题的拆解结构</strong>。
+      一个大问题爆炸成一棵子问题树：每个卡点逐级往下拆，直到每一片叶子都落在两种终点之一——
+      <strong>"可回答"</strong>，或者<strong>"可现场核实"</strong>。
+    </p>
+  </div>
+
+  <div class="figrow">
+    <div class="fig reveal" data-delay="1">
+      <b>20</b>
+      <span>个关键问题——义乌全球农产品集散中心调研的问题树根（个人工作口径）</span>
+    </div>
+    <div class="fig reveal" data-delay="2">
+      <b>23</b>
+      <span>条现场核实清单——桌面研究答不掉的，带去义乌当面问（个人工作口径）</span>
+    </div>
+  </div>
+
+  <!-- 可展开问题树 -->
+  <div class="qtree reveal">
+    <details open>
+      <summary>
+        <span class="qmark">Q·根</span>
+        义乌全球农产品集散中心：这个项目到底该怎么看懂？
+        <span class="qplus">＋</span>
+      </summary>
+      <div class="qbody">
+        <details>
+          <summary>
+            <span class="qmark">Q1</span>
+            关键问题：二十问之一（逐级拆解示意）
+            <span class="qplus">＋</span>
+          </summary>
+          <div class="qbody">
+            <details>
+              <summary>
+                <span class="qmark">Q1.1</span>
+                子问题：桌面研究可回答的环节
+                <span class="qleaf desk">线上先答</span>
+                <span class="qplus">＋</span>
+              </summary>
+              <div class="qbody">
+                <p>公开报告、统计数据、公告文书能答掉的，出发前全部答掉，不占现场一分钟。</p>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="qmark">Q1.2</span>
+                子问题：只有现场才能问到的环节
+                <span class="qleaf field">现场核实</span>
+                <span class="qplus">＋</span>
+              </summary>
+              <div class="qbody">
+                <p>凡是"纸面上查不到、电话里问不清"的，进入现场核实清单——23 条，一条一条当面销号。</p>
+              </div>
+            </details>
+          </div>
+        </details>
+        <details>
+          <summary>
+            <span class="qmark">Q2 – Q20</span>
+            其余关键问题：同样各带一条子问题链
+            <span class="qplus">＋</span>
+          </summary>
+          <div class="qbody">
+            <p>每个关键问题按同一纪律拆解：拆到每片叶子"可回答"或"可现场核实"为止。此处从略，结构完全相同。</p>
+          </div>
+        </details>
+      </div>
+    </details>
+  </div>
+
+  <div class="prose">
+    <p class="reveal">
+      执行顺序是铁律：<strong>线上先答掉桌面研究能答的</strong>，剩下的才形成现场核实清单带去义乌——
+      到了现场，只问"只有现场才能问到的"。带着弹药去现场，而不是带着空白去现场。
+    </p>
+    <p class="reveal">
+      最后，全部问题入库，形成<strong>"问题爆炸扩散数据库"</strong>：
+      问过的问题、得到的答案、悬而未决的未决项，全部可复用、可迭代。
+      下一个项目不是从零开始，而是从上一棵问题树的枝干上继续爆炸。
+    </p>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>问题树（Issue Tree）</b>咨询业的基本功：把大问题层层拆解为互不重叠、可以逐个回答的子问题。<i>→ 索引：麦肯锡方法</i></li>
+      <li><b>批判性提问</b>好问题是可以训练的技能——先会问，才会查。<i>→ 索引：《学会提问》，见第十九章</i></li>
+      <li><b>知识库复用</b>问题与答案入库沉淀，下次调研从存量枝干上继续生长。<i>→ 与第八章数据库同构呼应</i></li>
+    </ul>
+  </aside>
+</section>
+<!-- ============================================================
+     第十二章 · 香农信息论
+     ============================================================ -->
+<section id="ch12" class="chapter" data-nav="12">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十二章 · 度量衡<span class="arc-tag"><b>转</b>异常即信息</span></div>
+    <h2>香农信息论：什么是有效情报</h2>
+    <p class="ch-sub">给"信息量"一把尺子，很多废话会当场现形</p>
+  </header>
+
+  <div class="shannon-formula reveal">
+    <p class="f-main">信息量 <span class="accent">=</span> 意外度</p>
+    <p class="f-math">I = −log₂ p &nbsp;·&nbsp; 一件事越不可能发生，它发生了，信息量越大</p>
+    <p class="f-eg"><b>"太阳照常升起"</b>——概率 ≈ 1，信息量 ≈ 0。正确，但等于没说。</p>
+  </div>
+
+  <div class="corollary reveal">
+    <h3><span class="co-no">推论一</span>增量信息</h3>
+    <p>
+      每一条新信息必须带来<b>增量</b>，否则就是废话。
+      所谓"AI 填充物"，本质就是<b>零增量信息的密集排列</b>——每句话都对，整篇读完一无所获。
+      用它审稿，一测一个准。
+    </p>
+  </div>
+
+  <div class="corollary reveal" data-delay="1">
+    <h3><span class="co-no">推论二</span>有效情报</h3>
+    <p>
+      <b>能改变决策的信息，才叫情报。</b>
+      不能改变任何决策的"知识"只是库存——存得再多，不产生一个动作。
+    </p>
+  </div>
+
+  <div class="corollary reveal" data-delay="2">
+    <h3><span class="co-no">推论三</span>异常即信号</h3>
+    <p>
+      异常数据点意外度最高 → 信息量最大 → 最可能是有效情报。
+      这就是为什么第二章说要<b>猎捕异常</b>——不是审美偏好，是信息论推出的必然。
+    </p>
+  </div>
+
+  <h3 class="h-block reveal">隐性知识</h3>
+  <div class="prose">
+    <p class="reveal">
+      老调研人身上有一类东西，<strong>用起来不着痕迹</strong>：什么时候该换关键词、哪个数字一看就不对、
+      哪种报告直接跳过。这些"小习惯"就是隐性知识。
+    </p>
+    <p class="reveal">
+      把隐性知识成体系地讲出来、教给别人，就是<strong>把隐性知识显性化</strong>——这正是本次分享的目的。
+    </p>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>信息熵</b>香农 1948 年提出的信息量度量：概率越小的事件发生后携带的信息越多。<i>→ 索引：香农《通信的数学理论》，见第十九章</i></li>
+      <li><b>隐性知识（Tacit Knowledge）</b>波兰尼提出的概念："我们知道的比能说出的多"——会但说不出来的部分。<i>→ 索引：波兰尼《个人知识》，见第十九章</i></li>
+      <li><b>对数刻度</b>log₂ 让信息量可加减可比较，与分贝、里氏震级同理。<i>→ 索引：初等数学</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第十三章 · 穷尽思维与极限思维
+     ============================================================ -->
+<section id="ch13" class="chapter wide" data-nav="13">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十三章 · 极限<span class="arc-tag"><b>承</b>数据在于其全</span></div>
+    <h2>穷尽思维与极限思维</h2>
+    <p class="ch-sub">数据之大，不在于其大，而在于其全</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      大数据时代人人谈"大"，但调研真正需要的是另一个字：<strong>全</strong>。
+      大而不全的数据是迷雾，小但穷尽的数据才是地图。
+      穷尽思维的第一步，是知道你的对象<strong>"全国总共就多少"</strong>。
+    </p>
+  </div>
+
+  <blockquote class="pull reveal">
+    数据之大，<span class="accent">不在于其大，而在于其全</span>。
+    <small>——当你知道总共就多少，你才知道什么叫"查完了"</small>
+  </blockquote>
+
+  <h3 class="h-block reveal">「全国总共就多少」枚举墙</h3>
+  <div class="enumwall">
+    <div class="enum reveal">
+      <div class="e-no">34 / 约333 / 约2800+ / 约3.8万</div>
+      <h4>行政区划</h4>
+      <p>省级、地级、县级、乡镇街道四级——中国行政版图的完整格子数。</p>
+      <div class="e-src">量级口径：民政部行政区划统计；具体数随年度调整，以官方库为准</div>
+    </div>
+    <div class="enum reveal" data-delay="1">
+      <div class="e-no">数百 / 数百 / 上万 / 数万</div>
+      <h4>法律法规</h4>
+      <p>法律数百件、行政法规数百件、地方性法规上万件、规章数万件——规则体系是可穷尽的。</p>
+      <div class="e-src">量级口径：国家法律法规数据库</div>
+    </div>
+    <div class="enum reveal" data-delay="2">
+      <div class="e-no">60+ / 200+ / 3000+</div>
+      <h4>学科体系</h4>
+      <p>一级学科、二级学科、三级方向——全部通览过，知识版图有边界。</p>
+      <div class="e-src">个人工作口径（已全部通览）；索引：教育部学科专业目录</div>
+    </div>
+    <div class="enum reveal">
+      <div class="e-no">数千件</div>
+      <h4>地理标志农产品</h4>
+      <p>全国登记在册的 GI 农产品——每一个都有名有姓有产地，可以逐个过完。</p>
+      <div class="e-src">量级口径：农业农村部 / 国家知识产权局 GI 登记</div>
+    </div>
+    <div class="enum reveal" data-delay="1">
+      <div class="e-no">全量可查</div>
+      <h4>人口结构数据</h4>
+      <p>总量、年龄、城乡、受教育程度——普查与年鉴把人口结构摊到区县一级。</p>
+      <div class="e-src">索引：全国人口普查 / 统计年鉴</div>
+    </div>
+    <div class="enum muted reveal" data-delay="2">
+      <div class="e-no">可穷尽</div>
+      <h4>官员体系</h4>
+      <p>任期、履历、分工全部公开在册——不填数字，因为它不是量级问题，是逐人可枚举问题。</p>
+      <div class="e-src">口径：各级政府官方公开信息</div>
+    </div>
+    <div class="enum reveal">
+      <div class="e-no">逐条 · 逐港 · 逐段</div>
+      <h4>铁路 / 港口 / 道路</h4>
+      <p>营业里程、泊位、路网等级——基础设施清单在公报与年鉴里完整躺着。</p>
+      <div class="e-src">索引：国铁集团统计公报、交通运输部年鉴</div>
+    </div>
+    <div class="enum reveal" data-delay="1">
+      <div class="e-no">约 200</div>
+      <h4>国家和地区</h4>
+      <p>扩展全球：联合国会员国 193 个，加观察员与地区，全球也就两百个格子。</p>
+      <div class="e-src">量级口径：联合国会员国 193 + 观察员 + 地区</div>
+    </div>
+    <div class="enum muted reveal" data-delay="2">
+      <div class="e-no">1 个</div>
+      <h4>你的调研对象</h4>
+      <p>放进这些格子之后，任何对象都不再是"深不可测"，而是"坐标明确"。</p>
+      <div class="e-src">穷尽的终点：对象在有限世界里被定位</div>
+    </div>
+  </div>
+
+  <h3 class="h-block reveal">与 MECE 的关系：尊重，但不迷信</h3>
+  <div class="prose">
+    <p class="reveal">
+      MECE（相互独立、完全穷尽）是好纪律，本方法论的六维划分就受它约束。但<strong>不迷信</strong>：
+      现实中的数据库之间允许重叠——行政区划与地理标志重叠，人口数据与企业数据重叠。
+      <strong>重叠不是脏数据，是交叉验证的接口</strong>：同一件事在两个库里能对上，才可信；
+      多个数据库的重叠部分，正是共同模拟仿真的黏合层。
+    </p>
+  </div>
+
+  <h3 class="h-block reveal">知识谱系：穷尽思维的四个来源</h3>
+  <div class="flow reveal">
+    <div class="flow-step">
+      <div class="fs-tag">统计学</div>
+      <h4>总体与抽样</h4>
+      <p>先定义总体边界，再谈样本——"总共多少"是统计学第一问。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">计量经济学</div>
+      <h4>全量数据建模</h4>
+      <p>面板数据把每个个体、每个时期都纳入模型。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">计算机科学</div>
+      <h4>穷举与索引</h4>
+      <p>有限集合皆可遍历；建库即建索引。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step hot">
+      <div class="fs-tag">系统论</div>
+      <h4>整体大于部分之和</h4>
+      <p>穷尽所有部分之后，重点转向部分之间的关系。</p>
+    </div>
+  </div>
+
+  <h3 class="h-block reveal">溯源习惯：从"盘古开天辟地"讲起</h3>
+  <div class="prose">
+    <p class="reveal">
+      了解一件事，习惯从它的源头讲起：研究一部法律，就从<strong>立法史</strong>讲起——它哪年首次颁布、历次修订改了什么；
+      研究一个行业，就从<strong>产业史</strong>讲起——它什么时候落地中国、经历过哪几轮洗牌。
+      溯源不是掉书袋，是穷尽思维在时间轴上的版本：<strong>空间的穷尽靠枚举，时间的穷尽靠溯源</strong>。
+    </p>
+  </div>
+
+  <blockquote class="pull reveal">
+    穷尽不是表演，是极限思维的副产品。<br>
+    最终指向一个<span class="accent">真世界模型</span>——<br>
+    把真实世界建成可模拟、可仿真的模型。
+    <small>——《游戏改变世界》简·麦格尼格尔：游戏化是组织复杂系统的方式；仿真，是理解复杂系统的终点</small>
+  </blockquote>
+
+  <div class="prose">
+    <p class="reveal">
+      呼应第一章的知识宇宙：<strong>EduKG 和 Marble 画的是九年义务教育的图谱；这套方法论画的，是任意一个区县、任意一条产业链的图谱——<span class="kw">同一件事，换了对象</span>。</strong>
+    </p>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag opt">选讲</span></div>
+    <ul>
+      <li><b>MECE</b>麦肯锡《金字塔原理》的分类法则：相互独立、完全穷尽。<i>→ 索引：芭芭拉·明托，见第十九章</i></li>
+      <li><b>面板数据（Panel Data）</b>个体 × 时间的全量二维数据，计量经济学的标准建模对象。<i>→ 索引：计量经济学教材</i></li>
+      <li><b>一般系统论</b>贝塔朗菲提出：整体大于部分之和，关系本身值得建模。<i>→ 索引：贝塔朗菲，见第十九章</i></li>
+      <li><b>世界模型（World Model）</b>让系统内部生成可模拟的世界表征，Ha &amp; Schmidhuber 2018 年给出技术源头。<i>→ 索引：见第十九章</i></li>
+    </ul>
+  </aside>
+</section>
+<!-- ============================================================
+     第十四章 · 数据纪律
+     ============================================================ -->
+<section id="ch14" class="chapter" data-nav="14">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十四章 · 底线</div>
+    <h2>数据纪律：四条铁律</h2>
+    <p class="ch-sub">方法论决定调研能走多快，纪律决定调研能走多远</p>
+  </header>
+
+  <div class="rule reveal">
+    <div class="rule-no">壹</div>
+    <div class="rule-body">
+      <h3>数字与口径必须成对出现</h3>
+      <p>
+        任何数字必须附带口径词——是<b>交易额</b>、<b>产值</b>、<b>货值</b>，还是<b>全产业链估算</b>？
+        拒绝宣传口径。一个不带口径的数字，比一个缺口更危险：缺口让人警惕，裸数字让人误判。
+      </p>
+    </div>
+  </div>
+
+  <div class="rule reveal">
+    <div class="rule-no">贰</div>
+    <div class="rule-body">
+      <h3>可信度三级标注</h3>
+      <p>每个数字标注来源等级，<b>分级展示、绝不混用</b>：</p>
+      <div class="grade-row">
+        <div class="grade gA">
+          <b>A 级 · 实测</b>
+          <span>公报、实测数据，可直接引用</span>
+        </div>
+        <div class="grade gB">
+          <b>B 级 · 锚点推算</b>
+          <span>以 A 级为锚点推算而来，注明推算路径</span>
+        </div>
+        <div class="grade gC">
+          <b>C 级 · 模拟推演</b>
+          <span>情景模拟与推演结果，只用于测算量级</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule reveal">
+    <div class="rule-no">叁</div>
+    <div class="rule-body">
+      <h3>缺失宁可留空，也不编造</h3>
+      <p>
+        辽西冷库地图上，<b>搜不到面积的冷库保持小图标</b>——它作为一个真实的情报空白点被呈现出来，
+        而不是被编一个数填满。报告后附<b>诚实的数据缺口清单</b>（如阜新缺公报实数）。
+        空白本身也是情报：它告诉下一步该去哪挖。
+      </p>
+    </div>
+  </div>
+
+  <div class="rule reveal">
+    <div class="rule-no">肆</div>
+    <div class="rule-body">
+      <h3>学术诚实性</h3>
+      <p>
+        宁可降格理论框架，也不虚构证据——<b>"看不出协同，就诚实写分别应用"</b>。
+        判断"协同"是否真实，有三个可验证标准：
+      </p>
+      <ul class="checklist">
+        <li>数据是否打通</li>
+        <li>业务是否衔接</li>
+        <li>指标是否联动</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>统计口径</b>一个指标的统计范围与定义（交易额≠产值≠货值），口径不同数字不可比。<i>→ 索引：统计调查制度</i></li>
+      <li><b>来源分级</b>情报学的通行做法：按来源可靠性与信息可信度双维打分。<i>→ 索引：情报分析规范（如 Admiralty Code）</i></li>
+      <li><b>证伪意识</b>拿不出证据就降格结论，与第九章"可验证的溯因"一体两面。<i>→ 见第九章</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第十五章 · 对标方法
+     ============================================================ -->
+<section id="ch15" class="chapter" data-nav="15">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十五章 · 坐标升级</div>
+    <h2>对标方法</h2>
+    <p class="ch-sub">从"能否做"，到"份额从哪抢"</p>
+  </header>
+
+  <h3 class="h-block reveal">三板斧</h3>
+  <div class="flow reveal">
+    <div class="flow-step">
+      <div class="fs-tag">第一斧</div>
+      <h4>对标</h4>
+      <p>以全国领先地区、头部企业为基准。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step">
+      <div class="fs-tag">第二斧</div>
+      <h4>差距</h4>
+      <p>逐项量出与基准之间的距离。</p>
+    </div>
+    <div class="flow-arrow" aria-hidden="true"></div>
+    <div class="flow-step hot">
+      <div class="fs-tag">第三斧</div>
+      <h4>路径</h4>
+      <p>差距翻译成可执行的追赶路径。</p>
+    </div>
+  </div>
+
+  <h3 class="h-block reveal">三组实战对标</h3>
+
+  <div class="bench reveal">
+    <div class="b-side local">
+      <div class="b-role">本地对象</div>
+      <h4>锦州小菜</h4>
+      <p>地方特色风味食品。</p>
+    </div>
+    <div class="b-vs"><i>对</i></div>
+    <div class="b-side">
+      <div class="b-role">全国基准</div>
+      <h4>涪陵榨菜</h4>
+      <p>审视"超越"的可行性路径。</p>
+    </div>
+    <p class="bench-ask">问的不是能不能做酱菜——是锦州小菜凭什么走出一条通向头部水准的路。</p>
+  </div>
+
+  <div class="bench reveal">
+    <div class="b-side local">
+      <div class="b-role">本地对象</div>
+      <h4>锦州食品产业园</h4>
+      <p>本地产业承载平台。</p>
+    </div>
+    <div class="b-vs"><i>对</i></div>
+    <div class="b-side">
+      <div class="b-role">头部基准</div>
+      <h4>大连盖世食品</h4>
+      <p>验证"份额从哪抢"。</p>
+    </div>
+    <p class="bench-ask">产业园不是盖出来的，是从头部企业的订单结构里抢出来的。</p>
+  </div>
+
+  <div class="bench reveal">
+    <div class="b-side local">
+      <div class="b-role">本地规划</div>
+      <h4>冷链集散</h4>
+      <p>锦州方向的冷链集散设想。</p>
+    </div>
+    <div class="b-vs"><i>对</i></div>
+    <div class="b-side">
+      <div class="b-role">区域基准</div>
+      <h4>盘锦新发地</h4>
+      <p>一期 <b style="color:var(--cinnabar);">643</b> 亩、二期 <b style="color:var(--cinnabar);">543</b> 亩。</p>
+    </div>
+    <p class="bench-ask">基准的体量摆在那里——对标先量纲，再谈雄心。</p>
+  </div>
+
+  <blockquote class="pull reveal">
+    论证焦点的升级：<br>
+    不问"这事<span class="accent">能不能做</span>"，<br>
+    问"份额从<span class="accent">谁嘴里抢</span>"。
+  </blockquote>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>对标（Benchmarking）</b>以最佳实践为基准量化差距的管理工具，源于施乐，成于质量管理运动。<i>→ 索引：管理学科基础</i></li>
+      <li><b>零和与份额</b>成熟市场里增长主要来自网络份额转移，所以问"从谁嘴里抢"。<i>→ 与第七章横线呼应</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第十六章 · 实战案例五则
+     ============================================================ -->
+<section id="ch16" class="chapter wide" data-nav="16">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十六章 · 交付物<span class="arc-tag"><b>承</b>无死角实战</span></div>
+    <h2>实战案例五则</h2>
+    <p class="ch-sub">方法论不是理论，是五个已经跑完的项目</p>
+  </header>
+
+  <div class="case-wall">
+
+    <article class="case-card reveal" data-no="01">
+      <div class="c-tag">产业谋划 · 全球证据链</div>
+      <h3>锦州过剩蔬菜加工出口全球计划</h3>
+      <div class="c-figs">
+        <b>210–340</b><span>万吨 · 辽西五市每年产后损耗农产品</span>
+        <b>128–213</b><span>万吨 · 其中蔬菜烂损</span>
+      </div>
+      <p>
+        从损耗里做产业：设计<b>腌渍菜 + 烧烤预制</b>两条加工通道，
+        共用<b>冷库 + 加工车间 + 锦州港出海口</b>，三层全球证据链逐级支撑。
+      </p>
+      <p class="c-link">已上线交互报告 → <a href="https://tongjixinzhi.cn" target="_blank" rel="noopener">tongjixinzhi.cn</a></p>
+    </article>
+
+    <article class="case-card reveal" data-no="02" data-delay="1">
+      <div class="c-tag">开源采集 · 语义化制图</div>
+      <h3>辽西五市冷库地图</h3>
+      <div class="c-figs">
+        <b>5</b><span>路并行采集</span>
+        <b>86</b><span>条确切面积记录</span>
+        <b>40</b><span>处设施落位</span>
+      </div>
+      <p>
+        搜不到的<b>一律不编造</b>。语义化 SVG「仓库 + 雪花」图标、五市专属配色、
+        图标大小按实测占地<b>五档分级</b>——地图本身就是数据纪律的演示。
+      </p>
+      <p class="c-errata">
+        <b>勘误一例：</b>清单中的"东北新发地（锦州太和区）"经核实，实际在盘锦兴隆台区——已如实标注更正。
+      </p>
+    </article>
+
+    <article class="case-card reveal" data-no="03" data-delay="2">
+      <div class="c-tag">问题工程 · 现场调研</div>
+      <h3>义乌集散中心 20 问</h3>
+      <div class="c-figs">
+        <b>20</b><span>个关键问题 · 各带子问题链</span>
+        <b>23</b><span>条现场核实清单</span>
+      </div>
+      <p>
+        桌面研究能答的出发前全部答掉，现场只问"只有现场才能问到的"——
+        <b>带着弹药去现场</b>，每一分钟都花在增量信息上。
+      </p>
+    </article>
+
+    <article class="case-card reveal" data-no="04" data-delay="3">
+      <div class="c-tag">尽职调查 · 穿透式风控</div>
+      <h3>何可人尽调</h3>
+      <div class="c-figs">
+        <b>9800</b><span>万元 · 被冻结股权（98% 全部）</span>
+        <b>200</b><span>万元 · 不在冻结清单的 2%</span>
+      </div>
+      <p>
+        2025 年，蚌埠法院冻结何飞龙 <b>9800 万</b>股权（98% 全部冻结），
+        而何可人的 <b>2%（200 万）</b>恰恰不在冻结清单里——
+        这一个异常点，改变了整个风控结论。
+      </p>
+    </article>
+
+    <article class="case-card reveal" data-no="05" data-delay="4">
+      <div class="c-tag">六维实战 · 街道级报告群</div>
+      <h3>后宅街道六维报告群</h3>
+      <div class="c-figs">
+        <b>5</b><span>份深度报告 · 人口/地理/企业/流量/历史</span>
+        <b>1</b><span>份市场调研建议书收口</span>
+      </div>
+      <p>
+        第四章第二仗的完整交付：<b>规上企业名单多源交叉印证</b>，
+        五维报告摆事实、建议书出判断——<b>洞见直接驱动项目谋划</b>，
+        这也是"六维框架"从五维补齐升级的现场。
+      </p>
+      <p class="c-link">方法论来历 → 见第四章 · 义乌三地</p>
+    </article>
+
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag must">必讲（只讲锦州 + 义乌）</span></div>
+    <ul>
+      <li><b>产后损耗</b>农产品采后分级、储运环节的损耗，是加工产业的原料池。<i>→ 索引：农产品流通统计</i></li>
+      <li><b>股权冻结</b>法院对股东权益的保全措施，冻结清单本身即是公开法律文书。<i>→ 索引：裁判文书/执行信息公开渠道</i></li>
+      <li><b>规上企业名单</b>统计部门口径的规模企业清单，交叉印证的用法见第四章第二仗。<i>→ 见第四章</i></li>
+    </ul>
+  </aside>
+</section>
+<!-- ============================================================
+     第十七章 · 认知风格自白
+     ============================================================ -->
+<section id="ch17" class="chapter" data-nav="17">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十七章 · 自白</div>
+    <h2>这套方法论的<span class="accent">出身证明</span></h2>
+    <p class="ch-sub">一次克制而诚实的坦白——关于这套框架为什么长这样</p>
+  </header>
+
+  <div class="prose">
+    <p class="lead reveal">
+      坦白一件事：我是 <strong>AuDHD</strong>——ADHD（注意缺陷多动障碍）与 ASD（孤独症谱系）的混合。
+      说这件事不是为了煽情，是因为它恰好解释了这套方法论为什么长成这个样子。
+    </p>
+  </div>
+
+  <div class="bench reveal">
+    <div class="b-side local">
+      <div class="b-role">ADHD 的一半</div>
+      <h4>广泛兴趣扫描</h4>
+      <p>兴趣雷达永远开着，什么都要扫一眼——天生的全网雷达。五个职业、几十个行业，不是规划，是雷达的自然轨迹。</p>
+    </div>
+    <div class="b-vs"><i>叠</i></div>
+    <div class="b-side">
+      <div class="b-role">ASD 的一半</div>
+      <h4>系统化偏好</h4>
+      <p>看到零散的东西就想建表、归类、穷举——天生的数据库建表冲动。学科目录要全部通览，行政区划要数到乡镇，都来自这一半。</p>
+    </div>
+    <p class="bench-ask">两者叠加 = 网状思维的大脑原生配置：雷达负责扫，建表冲动负责织。</p>
+  </div>
+
+  <div class="prose">
+    <p class="reveal">
+      所以对系统论、数据库、计算之美的追求，了解一件事就想从盘古开天辟地开始、想把全世界建模——
+      这些不是修养，是<strong>神经结构的默认设置</strong>。穷尽思维、六维框架、问题爆炸数据库，
+      都是这颗大脑为了把自己安顿好而长出来的外部支架。
+    </p>
+
+    <blockquote class="pull reveal">
+      方法可复制，<span class="accent">大脑不必复制</span>。<br>
+      <small>——你不需要我的神经结构，你只需要我的框架。框架的价值，恰恰是它外化了我的认知方式：我脑子里自动发生的事，被拆成了任何人都能执行的步骤。</small>
+    </blockquote>
+
+    <p class="reveal">
+      说到底，这套方法论是<strong>一个大脑为了自救而造的外部系统</strong>——
+      现在它是团队的公共财产。这大概是 AuDHD 最体面的一次就业。
+    </p>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag opt">选讲</span></div>
+    <ul>
+      <li><b>AuDHD</b>ADHD 与 ASD 共存的俗称；前者特征为兴趣驱动与注意切换，后者特征为系统化与模式偏好。<i>→ 索引：DSM-5 诊断手册</i></li>
+      <li><b>系统化倾向（Systemizing）</b>西蒙·巴伦-科恩提出的认知维度：分析和建构系统的驱动力。<i>→ 索引：Baron-Cohen 共情-系统化理论</i></li>
+      <li><b>认知外化</b>把脑内过程写成外部工具与流程，是知识显性化的极端版本。<i>→ 与第十二章隐性知识呼应</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第十八章 · 工具化与愿景
+     ============================================================ -->
+<section id="ch18" class="chapter" data-nav="18">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十八章 · 愿景<span class="arc-tag"><b>合</b>绝望中看到希望</span></div>
+    <h2>工具化与愿景</h2>
+    <p class="ch-sub">方法论的三次固化，和一次身份转变</p>
+  </header>
+
+  <h3 class="h-block reveal">方法论的三次固化</h3>
+  <div class="solidify reveal">
+    <div class="so-step">
+      <div class="so-no">第一次固化</div>
+      <h4>六维框架</h4>
+      <p>习惯 —— 长在脑子里的坐标系</p>
+    </div>
+    <div class="so-step">
+      <div class="so-no">第二次固化</div>
+      <h4>三级调研 Skill</h4>
+      <p>工具 —— 可复用的调研流水线</p>
+    </div>
+    <div class="so-step">
+      <div class="so-no">第三次固化</div>
+      <h4>Web 应用</h4>
+      <p>产品 —— 部署在自己的服务器上</p>
+    </div>
+  </div>
+
+  <h3 class="h-block reveal">公司转型投行的判断</h3>
+  <div class="prose">
+    <p class="reveal">
+      投行不是牌照，是<strong>能力</strong>。
+      能对任何一个区县做到"比当地人更懂当地"，项目就会自己长出来——
+      投行资格不是前提，是这套能力的结果。
+    </p>
+  </div>
+
+  <div class="golden reveal">
+    <span class="g-mark">“</span>
+    <p>
+      所有方法论，最后都指向同一个动作——<br>
+      在<span class="accent">常态</span>里发现<span class="accent">反常</span>，<br>
+      在<span class="accent">反常</span>里看见<span class="accent">机会</span>。
+    </p>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag must">必讲</span></div>
+    <ul>
+      <li><b>Skill / 工具化</b>把方法步骤固化成可复用工具，机器执行、人做决策。<i>→ 见第六章三级流水线</i></li>
+      <li><b>投资银行能力模型</b>行业研究 + 尽调 + 撮合，本质是信息与判断的生意。<i>→ 索引：投行实务入门</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第十九章 · 知识索引与延伸阅读
+     ============================================================ -->
+<section id="ch19" class="chapter wide" data-nav="19">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第十九章 · 索引</div>
+    <h2>知识索引与延伸阅读</h2>
+    <p class="ch-sub">这套方法论站在哪些肩膀上——每一章的概念都能在这里找到出处</p>
+  </header>
+
+  <div class="biblio">
+    <div class="bib reveal">
+      <span class="b-mark">壹</span>
+      <div>
+        <h4>《通信的数学理论》</h4>
+        <div class="b-au">克劳德·香农 · 1948</div>
+        <p>信息量 = 意外度。"有效情报"的全部度量衡来自这里。<i>→ 支撑第十二章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal" data-delay="1">
+      <span class="b-mark">贰</span>
+      <div>
+        <h4>溯因推理（Abduction）</h4>
+        <div class="b-au">查尔斯·桑德斯·皮尔士</div>
+        <p>第三种推理的提出者：从异常反推最佳解释。调研认知引擎的哲学源头。<i>→ 支撑第九章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal">
+      <span class="b-mark">叁</span>
+      <div>
+        <h4>《个人知识》</h4>
+        <div class="b-au">迈克尔·波兰尼 · 1958</div>
+        <p>隐性知识 / 默会知识："我们知道的比我们能说出的多。"<i>→ 支撑第十二章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal" data-delay="1">
+      <span class="b-mark">肆</span>
+      <div>
+        <h4>《一般系统论》</h4>
+        <div class="b-au">路德维希·冯·贝塔朗菲</div>
+        <p>整体大于部分之和——穷尽之后，重点转向关系。<i>→ 支撑第八、十三章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal">
+      <span class="b-mark">伍</span>
+      <div>
+        <h4>《金字塔原理》</h4>
+        <div class="b-au">芭芭拉·明托</div>
+        <p>MECE 法则的出处：相互独立、完全穷尽。我们尊重它，但不迷信它。<i>→ 支撑第十三章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal" data-delay="1">
+      <span class="b-mark">陆</span>
+      <div>
+        <h4>Palantir Ontology 官方技术博客</h4>
+        <div class="b-au">Palantir Technologies</div>
+        <p>本体论建模的工业级样板：把现实世界建成对象与连接。<i>→ 支撑第八章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal">
+      <span class="b-mark">柒</span>
+      <div>
+        <h4>《游戏改变世界》</h4>
+        <div class="b-au">简·麦格尼格尔 · 2011</div>
+        <p>游戏化是组织复杂系统的方式——仿真思维的大众读本。<i>→ 支撑第十三章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal" data-delay="1">
+      <span class="b-mark">捌</span>
+      <div>
+        <h4>World Model</h4>
+        <div class="b-au">Ha &amp; Schmidhuber · 2018</div>
+        <p>世界模型的技术源头：让智能体在内部模拟世界里学习与推演。<i>→ 支撑第十三章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal">
+      <span class="b-mark">玖</span>
+      <div>
+        <h4>PostgreSQL 官方文档</h4>
+        <div class="b-au">PostgreSQL Global Development Group</div>
+        <p>关系型思维的工程实现：关系、约束、可连接查询。<i>→ 支撑第八章</i></p>
+      </div>
+    </div>
+    <div class="bib reveal" data-delay="1">
+      <span class="b-mark">拾</span>
+      <div>
+        <h4>《学会提问》</h4>
+        <div class="b-au">尼尔·布朗</div>
+        <p>批判性提问入门——问题链与问题树的平民版起点。<i>→ 支撑第十一章</i></p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>怎么用这份索引</b>不必全读——哪一章听懵了，就从对应条目入手，一本书解决一章。<i>→ 各章末"前置知识补给"均回指本章</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     第二十章 · 演讲路径
+     ============================================================ -->
+<section id="ch20" class="chapter wide" data-nav="20">
+  <header class="ch-head reveal">
+    <div class="ch-eyebrow">第二十章 · 使用说明</div>
+    <h2>演讲路径</h2>
+    <p class="ch-sub">现场只讲骨架，细节留给滚动——两个时长的讲法</p>
+  </header>
+
+  <div class="pathrow">
+    <div class="pathcard reveal">
+      <div class="p-tag">路径一</div>
+      <h3>30 分钟版</h3>
+      <p class="p-sub">只讲主线钩子，其余章节现场标注"自读"</p>
+      <ul class="pathsteps">
+        <li><span class="p-no">00</span>封面钩子 · 猎捕异常数据点</li>
+        <li><span class="p-no">01</span>知识宇宙 · 知识是可计量的</li>
+        <li><span class="p-no">02</span>引子 · 锦州的两个异常点</li>
+        <li><span class="p-no">03</span>五个职业 · 五把刀</li>
+        <li><span class="p-no">04</span>义乌考古 · 框架从泥里长出来</li>
+        <li><span class="p-no">08</span>点线面体 · "立体"的全部含义</li>
+        <li><span class="p-no">16</span>案例墙 · 只讲锦州 + 义乌</li>
+        <li><span class="p-no">18</span>愿景 · 投行是能力不是牌照</li>
+        <li class="p-skip"><span class="p-no">…</span><b>其余各章 · 标注自读</b>，会后滚动细看</li>
+      </ul>
+    </div>
+    <div class="pathcard hot reveal" data-delay="1">
+      <div class="p-tag">路径二</div>
+      <h3>60 分钟版</h3>
+      <p class="p-sub">在 30 分钟骨架上加讲四章理论与自白</p>
+      <ul class="pathsteps">
+        <li><span class="p-no">＋</span>30 分钟版全部节点</li>
+        <li><span class="p-no">07</span>四线研究法 · 报告的元结构</li>
+        <li><span class="p-no">09</span>溯因推理 · 三种推理的对比</li>
+        <li><span class="p-no">13</span>穷尽思维 · 数据在于其全</li>
+        <li><span class="p-no">17</span>认知自白 · 方法可复制，大脑不必复制</li>
+        <li class="p-skip"><span class="p-no">…</span><b>05/06/10/11/12/14/15/19/20 · 自读</b>，每章末有补给卡</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note reveal">
+    <b>原则：</b>每章末尾的「前置知识补给」卡同时承担两个功能——给没背景的听众补课，给演讲者标注<b>必讲 / 选讲 / 自读</b>。现场只讲骨架，细节留给滚动：这份页面本身就是演讲的完整弹药库。
+  </div>
+
+  <aside class="prereq reveal">
+    <div class="prereq-head">前置知识补给<span class="readtag self">自读</span></div>
+    <ul>
+      <li><b>必讲 / 选讲 / 自读</b>三档标签依据信息密度与不可替代性划分：必讲章承载钩子与理论高潮，自读章依赖文字即可完整传达。<i>→ 见各章末标签</i></li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================================================
+     收尾页 · 讨论
+     ============================================================ -->
+<section id="finale" aria-label="讨论与联系">
+  <h2 class="fin-title reveal">讨 论</h2>
+  <p class="fin-sub reveal" data-delay="1">
+    方法已经摆在桌上，欢迎任何追问与交锋——<br>
+    一个问题被问倒的地方，就是这套体系下一次升级的地方。
+  </p>
+  <p class="fin-meta reveal" data-delay="2">v3 · 2026 年 9 月 · 增补：知识宇宙开场 · 起转承合叙事</p>
+  <div class="contact-row reveal" data-delay="3">
+    <span class="contact-item"><b>汇报人</b>＿＿＿＿＿＿</span>
+    <span class="contact-item"><b>邮 箱</b>＿＿＿＿＿＿＿＿＿＿</span>
+    <span class="contact-item"><b>内部通讯</b>＿＿＿＿＿＿</span>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="f-seal">立体调研 · 方法论体系</div>
+  <div>v3 · 2026 年 9 月 · 内部分享</div>
+</footer>
+<script>
+(function () {
+  'use strict';
+
+  /* ----------------------------------------------------------
+     1. 顶部阅读进度条
+     ---------------------------------------------------------- */
+  var fill = document.getElementById('progress-fill');
+  var ticking = false;
+
+  function updateProgress() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    fill.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  }, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  /* ----------------------------------------------------------
+     2. IntersectionObserver：滚动入场动效
+     ---------------------------------------------------------- */
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    var revealIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    revealEls.forEach(function (el) { revealIO.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ----------------------------------------------------------
+     3. 章节导航：当前章节高亮 + 自动滚动到可见位置
+     ---------------------------------------------------------- */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('#chapnav a.navlink'));
+  var sections = navLinks
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+  var chapnav = document.getElementById('chapnav');
+
+  function setActive(id) {
+    navLinks.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('active', on);
+      if (on) {
+        /* 让激活项在可横向滚动的导航条里保持可见 */
+        var target = a.offsetLeft - chapnav.clientWidth / 2 + a.clientWidth / 2;
+        chapnav.scrollTo({ left: target, behavior: 'smooth' });
+      }
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var navIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    }, {
+      /* 视口中部的一条窄带：经过即视为当前章节 */
+      rootMargin: '-38% 0px -52% 0px',
+      threshold: 0
+    });
+    sections.forEach(function (s) { navIO.observe(s); });
+  }
+
+  /* ----------------------------------------------------------
+     4. 六维卡片：点击 / 键盘展开详情
+     ---------------------------------------------------------- */
+  var dimCards = document.querySelectorAll('.dim-card');
+
+  function toggleDim(card) {
+    var willOpen = !card.classList.contains('open');
+    dimCards.forEach(function (c) { c.classList.remove('open'); });
+    if (willOpen) { card.classList.add('open'); }
+  }
+
+  dimCards.forEach(function (card) {
+    card.addEventListener('click', function () { toggleDim(card); });
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleDim(card);
+      }
+    });
+  });
+
+  /* ----------------------------------------------------------
+     5. 打印前：展开所有折叠内容（问题树 / 维度卡）
+     ---------------------------------------------------------- */
+  function openAll() {
+    document.querySelectorAll('.qtree details').forEach(function (d) {
+      d.setAttribute('open', '');
+    });
+    dimCards.forEach(function (c) { c.classList.add('open'); });
+  }
+  window.addEventListener('beforeprint', openAll);
+})();
+</script>
+</body>
+</html>
